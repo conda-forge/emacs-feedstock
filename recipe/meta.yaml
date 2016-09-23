@@ -40,7 +40,7 @@ requirements:
 
 test:
   commands:
-    - $PREFIX/bin/emacs --help
+    - $PREFIX/bin/emacs --help -nw
 
     # This test fails on CircleCI because there is no tty.
     - $PREFIX/bin/emacs --kill  # [not linux]
