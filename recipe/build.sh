@@ -20,5 +20,5 @@ if [ "$(uname)" == "Darwin" ]; then
 #!/bin/bash
 exec $PREFIX/Emacs.app/Contents/MacOS/Emacs "$@"
 EOF
-
+    chmod a+x $PREFIX/bin/emacs
 fi
