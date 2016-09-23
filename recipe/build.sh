@@ -1,5 +1,5 @@
 if [ "$(uname)" == "Darwin" ]; then
-    OPTS="--disable-ns-self-contained" "--enable-locallisppath=$PREFIX/share/emacs/site-lisp"
+    OPTS="--disable-ns-self-contained --enable-locallisppath=$PREFIX/share/emacs/site-lisp"
 else
     OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib"
 fi
