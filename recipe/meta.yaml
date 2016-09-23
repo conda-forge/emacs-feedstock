@@ -40,10 +40,10 @@ requirements:
 
 test:
   commands:
-    - emacs --help
+    - $PREFIX/bin/emacs --help
 
     # This test fails on CircleCI because there is no tty.
-    - emacs --kill  # [not linux]
+    - $PREFIX/bin/emacs --kill  # [not linux]
 
 about:
   home: http://www.gnu.org/software/emacs/
