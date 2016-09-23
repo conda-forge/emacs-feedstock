@@ -1,6 +1,6 @@
 if [ "$(uname)" == "Darwin" ]; then
     # Feel free to remove this if you can figure out how to make it build.
-    OPTS="--without-x"
+    OPTS="--without-ns"
 else
     OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib"
 fi
