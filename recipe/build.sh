@@ -15,5 +15,8 @@ if [ "$(uname)" == "Darwin" ]; then
     mkdir -p $PREFIX/bin
     ln -s $PREFIX/Emacs.app/Contents/MacOS/Emacs $PREFIX/bin/emacs-25.1
     ln -s $PREFIX/bin/emacs-25.1 $PREFIX/bin/emacs
-    ln -s "$PREFIX/Emacs.app/Contents/MacOS/Emacs/bin/*" $PREFIX/bin/
+    ln -s $PREFIX/Emacs.app/Contents/MacOS/Emacs/bin/ctags $PREFIX/bin/
+    ln -s $PREFIX/Emacs.app/Contents/MacOS/Emacs/bin/ebrowse $PREFIX/bin/
+    ln -s $PREFIX/Emacs.app/Contents/MacOS/Emacs/bin/emacsclient $PREFIX/bin/
+    ln -s $PREFIX/Emacs.app/Contents/MacOS/Emacs/bin/etags $PREFIX/bin/
 fi
