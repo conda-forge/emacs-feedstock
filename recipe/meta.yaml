@@ -15,27 +15,26 @@ source:
 
 build:
   number: 1
-  skip: true  # [win]
   detect_binary_files_with_prefix: true
 
 requirements:
   build:
     - libxml2
-    - ncurses
+    - ncurses  # [not win]
     - dbus  # [osx]
     - jpeg 9*
     - libpng >=1.6.21,<1.7
     - libtiff 4.0.*
-    - giflib
+    - giflib  # [not win]
     - freetype 2.6.*  # [linux]
   run:
     - libxml2
-    - ncurses
+    - ncurses  # [not win]
     - dbus  # [osx]
     - jpeg 9*
     - libpng >=1.6.21,<1.7
     - libtiff 4.0.*
-    - giflib
+    - giflib  # [not win]
     - freetype 2.6.*  # [linux]
 
 test:
