@@ -42,8 +42,8 @@ test:
   commands:
     - $PREFIX/bin/emacs --help
     - $PREFIX/bin/emacsclient --help
-    - $PRERIX/bin/ctags --help
-    - $PRERIX/bin/ebrowse --help
+    - $PREFIX/bin/ctags --help
+    - $PREFIX/bin/ebrowse --help
     - $PREFIX/bin/etags --help
     # This test fails on CircleCI because there is no tty.
     - $PREFIX/bin/emacs --kill  # [not linux]
