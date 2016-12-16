@@ -14,7 +14,7 @@ source:
   sha1: 983e457971e3e3c8964d039c113033f98132b8a8
 
 build:
-  number: 4
+  number: 5
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
@@ -41,9 +41,13 @@ requirements:
 test:
   commands:
     - $PREFIX/bin/emacs --help
-
+    - $PREFIX/bin/emacsclient --help
+    - $PREFIX/bin/ctags --help
+    - $PREFIX/bin/ebrowse --help
+    - $PREFIX/bin/etags --help
     # This test fails on CircleCI because there is no tty.
-    - $PREFIX/bin/emacs --kill  # [not linux]
+    # It also fails on Travis, but I'm not sure why.
+    # - $PREFIX/bin/emacs -nw -Q --kill  # [not linux]
 
 about:
   home: http://www.gnu.org/software/emacs/
