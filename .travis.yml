@@ -50,7 +50,7 @@ script:
   #  miniconda3 directory, '/Users/travis/miniconda3/' (25 characters), so our
   # placeholder directory name needs 214 characters.
 
-  - CONDA_BLD_PATH=/Users/travis/miniconda3/placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac'
+  - CONDA_BLD_PATH=/Users/travis/miniconda3/placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_plac
   # We also need to set --no-build-id to avoid the recipe_1481871472196
   # subdirectory.
   - conda build --no-build-id ./recipe
