@@ -14,13 +14,13 @@ source:
   sha1: 983e457971e3e3c8964d039c113033f98132b8a8
 
 build:
-  number: 5
+  number: 6
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
 requirements:
   build:
-    - libxml2
+    - libxml2 2.9.*
     - ncurses 5.9*
     - dbus  # [osx]
     - jpeg 9*
@@ -29,7 +29,7 @@ requirements:
     - giflib 5.1.*
     - freetype 2.6.*  # [linux]
   run:
-    - libxml2
+    - libxml2 2.9.*
     - ncurses 5.9*
     - dbus  # [osx]
     - jpeg 9*
