@@ -2,7 +2,7 @@
 # X, it is built with --without-x (terminal emacs only). Feel free to lift
 # either of these restrictions if you are able to get it to build.
 
-{% set version = "25.1" %}
+{% set version = "25.2" %}
 
 package:
   name: emacs
@@ -11,10 +11,10 @@ package:
 source:
   fn: emacs-{{ version }}.tar.xz
   url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
-  sha1: 983e457971e3e3c8964d039c113033f98132b8a8
+  sha1: 3960d0b64031c645d98aafd4dc9ebf6f6ef4cf50
 
 build:
-  number: 5
+  number: 0
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
