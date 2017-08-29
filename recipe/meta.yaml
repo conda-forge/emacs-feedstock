@@ -20,6 +20,7 @@ build:
 
 requirements:
   build:
+    - toolchain
     - libxml2
     - ncurses 5.9*
     - dbus  # [osx]
@@ -28,6 +29,7 @@ requirements:
     - libtiff 4.0.*
     - giflib 5.1.*
     - freetype 2.6.*  # [linux]
+    - xorg-libxaw  # [linux]
   run:
     - libxml2
     - ncurses 5.9*
@@ -37,6 +39,7 @@ requirements:
     - libtiff 4.0.*
     - giflib 5.1.*
     - freetype 2.6.*  # [linux]
+    - xorg-libxaw  # [linux]
 
 test:
   commands:
