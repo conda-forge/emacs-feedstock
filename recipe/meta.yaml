@@ -14,12 +14,13 @@ source:
   sha1: 3960d0b64031c645d98aafd4dc9ebf6f6ef4cf50
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
 requirements:
   build:
+    - toolchain
     - libxml2
     - ncurses 5.9*
     - dbus  # [osx]
@@ -28,6 +29,7 @@ requirements:
     - libtiff 4.0.*
     - giflib 5.1.*
     - freetype 2.6.*  # [linux]
+    - xorg-libxaw  # [linux]
   run:
     - libxml2
     - ncurses 5.9*
@@ -37,6 +39,7 @@ requirements:
     - libtiff 4.0.*
     - giflib 5.1.*
     - freetype 2.6.*  # [linux]
+    - xorg-libxaw  # [linux]
 
 test:
   commands:
@@ -59,3 +62,4 @@ extra:
   recipe-maintainers:
     - asmeurer
     - msarahan
+    - notestaff
