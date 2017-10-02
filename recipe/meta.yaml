@@ -21,6 +21,7 @@ build:
 requirements:
   build:
     - toolchain
+    - pkg-config
     - libxml2
     - ncurses 5.9*
     - dbus  # [osx]
