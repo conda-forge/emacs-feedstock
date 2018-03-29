@@ -1,5 +1,9 @@
 if [ "$(uname)" == "Darwin" ]; then
     OPTS=""
+    # The build has a hard time finding libtinfo, which is separated fro
+    # libncurses. See
+    # https://github.com/conda-forge/emacs-feedstock/pull/16#issuecomment-334241528
+    export LDFLAGS="${LDFLAGS} -ltinfo"
 else
     OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib"
 fi
