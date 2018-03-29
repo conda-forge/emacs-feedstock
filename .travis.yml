@@ -59,7 +59,7 @@ script:
 
   # The build contains hardcoded references to the work directory in the
   # binary files. To fix this, we make the work directory exactly as long as
-  # the placeholder prefix (255 characters.
+  # the placeholder prefix (255 characters).
 
   # The prefix ends with '/work/emacs-25.1' (16 characters). We put it in the
   #  miniconda3 directory, '/Users/travis/miniconda3/' (25 characters), so our
