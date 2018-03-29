@@ -30,6 +30,7 @@ requirements:
     - giflib 5.1.*
     - freetype 2.6.*  # [linux]
     - xorg-libxaw  # [linux]
+    - zlib
   run:
     - libxml2
     - ncurses 5.9*
@@ -40,6 +41,7 @@ requirements:
     - giflib 5.1.*
     - freetype 2.6.*  # [linux]
     - xorg-libxaw  # [linux]
+    - zlib
 
 test:
   commands:
