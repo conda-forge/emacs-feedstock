@@ -27,5 +27,5 @@ if [ "$(uname)" == "Darwin" ]; then
     # Replace the work directory with the prefix in Emacs.app (including in
     # binary files). See the comments in .travis.yml.
 
-    LC_ALL=C grep -rl "$SRC_DIR/work/emacs-25.2/nextstep" $PREFIX/Emacs.app | xargs sed -i'' -e "s:$SRC_DIR/work/emacs-25.2/nextstep:$PREFIX:g"
+    python $RECIPE/binary_replace.py "$SRC_DIR/work/emacs-25.2/nextstep" "$PREFIX" "$PREFIX/Emacs.app"
 fi
