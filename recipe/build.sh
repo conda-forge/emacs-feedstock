@@ -27,5 +27,5 @@ if [ "$(uname)" == "Darwin" ]; then
     # Replace the work directory with the prefix in Emacs.app (including in
     # binary files). See the comments in .travis.yml.
 
-    grep -rl "$CONDA_BLD_PATH/work/emacs-25.2/nextstep" $PREFIX/Emacs.app | xargs sed -i'' -e "s:$CONDA_BLD_PATH/work/emacs-25.2/nextstep:$PREFIX:g"
+    LC_ALL=C grep -rl "$CONDA_BLD_PATH/work/emacs-25.2/nextstep" $PREFIX/Emacs.app | xargs sed -i'' -e "s:$CONDA_BLD_PATH/work/emacs-25.2/nextstep:$PREFIX:g"
 fi
