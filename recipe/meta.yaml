@@ -51,8 +51,7 @@ test:
     - $PREFIX/bin/ctags --help
     - $PREFIX/bin/ebrowse --help
     - $PREFIX/bin/etags --help
-    # This test fails on CircleCI because there is no tty.
-    - $PREFIX/bin/emacs -nw -Q --kill  # [not linux]
+    - $PREFIX/bin/emacs -nw -Q --kill < $(tty) > $(tty)
 
 about:
   home: http://www.gnu.org/software/emacs/
