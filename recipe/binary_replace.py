@@ -32,6 +32,7 @@ def replace(old, new, file):
         txt = f.read()
         new_txt = txt.replace(old, new)
         if new_txt != txt:
+            print("Performing replacement in", file)
             f.write(txt)
 
 if __name__ == '__main__':
