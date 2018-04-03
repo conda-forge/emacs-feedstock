@@ -28,12 +28,14 @@ def main():
             replace(old, new, os.path.join(dirpath, file))
 
 def replace(old, new, file):
-    with open(file, 'bw') as f:
+    with open(file, 'br') as f:
         txt = f.read()
         new_txt = txt.replace(old, new)
-        if new_txt != txt:
-            print("Performing replacement in", file)
-            f.write(txt)
+
+    if new_txt != txt:
+        print("Performing replacement in", file)
+        with open(file, 'bw') as f:
+            f.write(new_txt)
 
 if __name__ == '__main__':
     exit(main())
