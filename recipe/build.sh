@@ -1,5 +1,9 @@
 if [ "$(uname)" == "Darwin" ]; then
     OPTS=""
+    # The build has a hard time finding libtinfo, which is separated from
+    # libncurses. See
+    # https://github.com/conda-forge/emacs-feedstock/pull/16#issuecomment-334241528
+    export LDFLAGS="${LDFLAGS} -ltinfo"
 else
     OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib"
 fi
@@ -19,4 +23,9 @@ if [ "$(uname)" == "Darwin" ]; then
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/ebrowse $PREFIX/bin/ebrowse
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/emacsclient $PREFIX/bin/emacsclient
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/etags $PREFIX/bin/etags
+
+    # Replace the work directory with the prefix in Emacs.app (including in
+    # binary files). See the comments in .travis.yml.
+
+    python $RECIPE_DIR/binary_replace.py "$SRC_DIR/nextstep" "$PREFIX" "$PREFIX/Emacs.app"
 fi

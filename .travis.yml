@@ -51,6 +51,27 @@ install:
       source run_conda_forge_build_setup
 
 script:
-  - conda build ./recipe
+  #################################################
+  #              BEGIN CUSTOM CHANGE              #
+  #                                               #
+  # This change needs to stay intact on rerenders #
+  #################################################
+
+  # The build contains hardcoded references to the work directory in the
+  # binary files. To fix this, we make the work directory exactly as long as
+  # the placeholder prefix (255 characters).
+
+  # The prefix ends with '/work/emacs-25.2/nextstep' (25 characters). We put it in the
+  #  miniconda3 directory, '/Users/travis/miniconda3/' (25 characters), so our
+  # placeholder directory name needs 205 characters.
+
+  - export CONDA_BLD_PATH=/Users/travis/miniconda3/placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_place
+  # We also need to set --no-build-id to avoid the recipe_1481871472196
+  # subdirectory.
+  - conda build --no-build-id ./recipe
+
+  #################################################
+  #              END CUSTOM CHANGE                #
+  #################################################
 
   - upload_or_check_non_existence ./recipe conda-forge --channel=main
