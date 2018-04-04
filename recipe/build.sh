@@ -21,6 +21,7 @@ if [ "$(uname)" == "Darwin" ]; then
 #!/bin/sh
 $PREFIX/Emacs.app/Contents/MacOS/Emacs "\$@"
 EOF
+    chmod a+x $PREFIX/bin/emacs-$PKG_VERSION
     ln -s $PREFIX/bin/emacs-$PKG_VERSION $PREFIX/bin/emacs
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/ctags $PREFIX/bin/ctags
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/ebrowse $PREFIX/bin/ebrowse
