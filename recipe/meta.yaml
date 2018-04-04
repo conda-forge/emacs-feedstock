@@ -21,28 +21,28 @@ build:
 requirements:
   build:
     - toolchain
-    - libxml2
+    - libxml2 2.9.*
     - ncurses 5.9*
     - dbus  # [osx]
     - jpeg 9*
     - libpng >=1.6.23,<1.7
     - libtiff 4.0.*
     - giflib 5.1.*
-    - freetype 2.6.*  # [linux]
+    - freetype 2.8.1  # [linux]
     - xorg-libxaw  # [linux]
-    - zlib
+    - zlib 1.2.11
     - python 3.6.*  # [osx]
   run:
-    - libxml2
+    - libxml2 2.9.*
     - ncurses 5.9*
     - dbus  # [osx]
     - jpeg 9*
     - libpng >=1.6.23,<1.7
     - libtiff 4.0.*
     - giflib 5.1.*
-    - freetype 2.6.*  # [linux]
+    - freetype 2.8.1  # [linux]
     - xorg-libxaw  # [linux]
-    - zlib
+    - zlib 1.2.11
 
 test:
   commands:
