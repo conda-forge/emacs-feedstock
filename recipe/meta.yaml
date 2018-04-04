@@ -14,7 +14,7 @@ source:
   sha1: 1cb4f39e9c0a3305fd62f936c7c95ff8e2924323
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
@@ -30,6 +30,8 @@ requirements:
     - giflib 5.1.*
     - freetype 2.8.1  # [linux]
     - xorg-libxaw  # [linux]
+    - xorg-libxpm  # [linux]
+    - xorg-libxfixes  # [linux]
     - zlib 1.2.11
     - python 3.6.*  # [osx]
   run:
@@ -42,6 +44,8 @@ requirements:
     - giflib 5.1.*
     - freetype 2.8.1  # [linux]
     - xorg-libxaw  # [linux]
+    - xorg-libxpm  # [linux]
+    - xorg-libxfixes  # [linux]
     - zlib 1.2.11
 
 test:
