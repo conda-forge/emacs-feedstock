@@ -27,5 +27,5 @@ if [ "$(uname)" == "Darwin" ]; then
     # Replace the work directory with the prefix in Emacs.app (including in
     # binary files). See the comments in .travis.yml.
 
-    # python $RECIPE_DIR/binary_replace.py "$SRC_DIR/nextstep" "$PREFIX" "$PREFIX/Emacs.app"
+    python $RECIPE_DIR/binary_replace.py "$SRC_DIR/nextstep" "$PREFIX" "$PREFIX/Emacs.app"
 fi
