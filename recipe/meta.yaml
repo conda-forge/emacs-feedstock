@@ -14,7 +14,7 @@ source:
   sha1: 1cb4f39e9c0a3305fd62f936c7c95ff8e2924323
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
