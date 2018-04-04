@@ -31,7 +31,7 @@ requirements:
     - freetype 2.6.*  # [linux]
     - xorg-libxaw  # [linux]
     - zlib
-    - python  # [osx]
+    - python 3.6.*  # [osx]
   run:
     - libxml2
     - ncurses 5.9*
