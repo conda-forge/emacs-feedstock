@@ -11,7 +11,7 @@ fi
 bash configure  --prefix=$PREFIX $OPTS
 
 make
-make check
+# make check
 make install
 
 if [ "$(uname)" == "Darwin" ]; then
