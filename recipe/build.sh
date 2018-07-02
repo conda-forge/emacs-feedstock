@@ -27,9 +27,4 @@ EOF
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/ebrowse $PREFIX/bin/ebrowse
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/emacsclient $PREFIX/bin/emacsclient
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/etags $PREFIX/bin/etags
-
-    # Replace the work directory with the prefix in Emacs.app (including in
-    # binary files). See the comments in .travis.yml.
-
-    # python $RECIPE_DIR/binary_replace.py "$SRC_DIR/nextstep" "$PREFIX" "$PREFIX/Emacs.app"
 fi
