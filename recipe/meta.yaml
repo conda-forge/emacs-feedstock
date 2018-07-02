@@ -20,37 +20,38 @@ build:
 
 requirements:
   build:
-    - toolchain
     - pkg-config
-    - libxml2 2.9.*
-    - ncurses 5.9*
+    - {{ compiler('c') }}
+  host:
+    - libxml2
+    - ncurses
     - dbus  # [osx]
-    - jpeg 9*
-    - libpng >=1.6.23,<1.7
-    - libtiff 4.0.*
-    - giflib 5.1.*
+    - jpeg
+    - libpng
+    - libtiff
+    - giflib
     - gnutls
-    - freetype 2.8.1  # [linux]
+    - freetype        # [linux]
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
     - xorg-libxfixes  # [linux]
-    - zlib 1.2.11
-    - python 3.6.*  # [osx]
+    - zlib
+    - python        # [osx]
 
   run:
-    - libxml2 2.9.*
-    - ncurses 5.9*
+    - libxml2
+    - ncurses
     - dbus  # [osx]
-    - jpeg 9*
-    - libpng >=1.6.23,<1.7
-    - libtiff 4.0.*
-    - giflib 5.1.*
+    - jpeg
+    - libpng
+    - libtiff
+    - giflib
     - gnutls
-    - freetype 2.8.1  # [linux]
+    - freetype        # [linux]
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
     - xorg-libxfixes  # [linux]
-    - zlib 1.2.11
+    - zlib
 
 test:
   commands:
