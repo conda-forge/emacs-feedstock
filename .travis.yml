@@ -7,6 +7,9 @@ os: osx
 osx_image: xcode6.4
 
 env:
+  matrix:
+    - CONFIG=osx_
+
   global:
     # The BINSTAR_TOKEN secure variable. This is defined canonically in conda-forge.yml.
     - secure: "b3SDvcDd6Bi3WvGmg6tkWMyQ9/tunQRhwSA5O4aiZygSFH8elyT6LEsn88AX6QeAn54t2S1OVk5aCGtWbZN7O6rZeZETDBbWeIYOQc4rJGJ6f99YTxROQ+/WhoYwOvzPLkXGssYXGADac0LObJh365CY05STG2lon/xaqjydaBQSGF3WeRiqNkkM830ZTAd8ugArxzAP2KWQNyUbmTSOH9agcVb5530MPcfnWL2tRyxEQpQhogXIiz4Ap14YYaIO7RnuMiEezgZ3pv+l+IOFPQhQXqW+w4Na7YjDTlxqSBIak7PTlF+wDuVIbNwpuUudDGwXuz0UUQI8i8dr6MmzihOe1fXxDtqSyym7eMLRJ9KWj64eRzPxat9MyzK7GHQI1OpaEu4Tu6vs9GmA4f96f0kAkiaLRyw0EF/qgjiQdQWRndWRT0IaaVR4omwcUDNJNZQH/gXutI8Q5uxU9N/bLKINL2ZAXVf5sLORgpovidkrqWb3Ooo54e8o+zdvssprLcsH/7PH+u1d6NqlPU6vOBhWpSs+CNYP9yxDc6Brd7lG0GQlotzUNL5zPlskaT3jftt0oq2dRljFZ0JF7MkINAMUudY73AoeQXBt08NJNrv4syn+y4RYf0v5MqEPJc1LL4rY8NsxVSmiiWE2TcC5NfPLEr2pGYACCx7oNIwa+tg="
@@ -15,7 +18,7 @@ env:
 before_install:
     # Fast finish the PR.
     - |
-      (curl https://raw.githubusercontent.com/conda-forge/conda-forge-build-setup-feedstock/master/recipe/ff_ci_pr_build.py | \
+      (curl https://raw.githubusercontent.com/conda-forge/conda-forge-ci-setup-feedstock/master/recipe/ff_ci_pr_build.py | \
           python - -v --ci "travis" "${TRAVIS_REPO_SLUG}" "${TRAVIS_BUILD_NUMBER}" "${TRAVIS_PULL_REQUEST}") || exit 1
 
     # Remove homebrew.
@@ -47,31 +50,10 @@ install:
       conda config --add channels defaults
       conda config --add channels conda-forge
       conda config --set show_channel_urls true
-      conda install --yes --quiet conda-forge-build-setup
+      conda install --yes --quiet conda-forge-ci-setup=1
       source run_conda_forge_build_setup
 
 script:
-  #################################################
-  #              BEGIN CUSTOM CHANGE              #
-  #                                               #
-  # This change needs to stay intact on rerenders #
-  #################################################
+  - conda build ./recipe -m ./.ci_support/${CONFIG}.yaml
 
-  # The build contains hardcoded references to the work directory in the
-  # binary files. To fix this, we make the work directory exactly as long as
-  # the placeholder prefix (255 characters).
-
-  # The prefix ends with '/work/emacs-25.2/nextstep' (25 characters). We put it in the
-  #  miniconda3 directory, '/Users/travis/miniconda3/' (25 characters), so our
-  # placeholder directory name needs 205 characters.
-
-  - export CONDA_BLD_PATH=/Users/travis/miniconda3/placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_placehold_place
-  # We also need to set --no-build-id to avoid the recipe_1481871472196
-  # subdirectory.
-  - conda build --no-build-id ./recipe
-
-  #################################################
-  #              END CUSTOM CHANGE                #
-  #################################################
-
-  - upload_or_check_non_existence ./recipe conda-forge --channel=main
+  - upload_or_check_non_existence ./recipe conda-forge --channel=main -m ./.ci_support/${CONFIG}.yaml
