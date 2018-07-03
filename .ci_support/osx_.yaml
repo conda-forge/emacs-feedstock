@@ -39,12 +39,7 @@ pin_run_as_build:
     max_pin: x.x
   ncurses:
     max_pin: x.x
-  python:
-    min_pin: x.x
-    max_pin: x.x
   zlib:
     max_pin: x.x
-python:
-- '3.5'
 zlib:
 - '1.2'
