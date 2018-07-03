@@ -36,7 +36,6 @@ requirements:
     - xorg-libxpm  # [linux]
     - xorg-libxfixes  # [linux]
     - zlib
-    - python        # [osx]
 
   run:
     - libxml2
