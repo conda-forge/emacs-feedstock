@@ -1,5 +1,0 @@
-dbus:
-- '1'
-pin_run_as_build:
-  dbus:
-    max_pin: x
