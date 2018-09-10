@@ -2,10 +2,12 @@ MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
 c_compiler:
 - toolchain_c
+channel_sources:
+- conda-forge,defaults
+channel_targets:
+- conda-forge main
 dbus:
 - '1'
-freetype:
-- 2.8.1
 giflib:
 - '5.1'
 jpeg:
@@ -25,8 +27,6 @@ ncurses:
 pin_run_as_build:
   dbus:
     max_pin: x
-  freetype:
-    max_pin: x.x
   giflib:
     max_pin: x.x
   jpeg:
