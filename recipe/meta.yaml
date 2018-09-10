@@ -35,6 +35,7 @@ requirements:
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
     - xorg-libxfixes  # [linux]
+    - xorg-libxft  # [linux]
     - zlib
 
   run:
@@ -50,6 +51,7 @@ requirements:
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
     - xorg-libxfixes  # [linux]
+    - xorg-libxft  # [linux]
     - zlib
 
 test:
