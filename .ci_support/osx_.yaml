@@ -1,17 +1,17 @@
 MACOSX_DEPLOYMENT_TARGET:
 - '10.9'
-build_number_decrement:
-- '0'
 c_compiler:
 - clang
+c_compiler_version:
+- '4'
 channel_sources:
-- conda-forge/label/gcc7,defaults
+- conda-forge,defaults
 channel_targets:
-- conda-forge gcc7
+- conda-forge main
 dbus:
 - '1'
 giflib:
-- '5.1'
+- 5.1.7
 jpeg:
 - '9'
 libpng:
@@ -29,8 +29,6 @@ ncurses:
 pin_run_as_build:
   dbus:
     max_pin: x
-  giflib:
-    max_pin: x.x
   jpeg:
     max_pin: x
   libpng:
@@ -43,10 +41,5 @@ pin_run_as_build:
     max_pin: x.x
   zlib:
     max_pin: x.x
-zip_keys:
-- - c_compiler
-  - channel_sources
-  - channel_targets
-  - build_number_decrement
 zlib:
 - '1.2'
