@@ -10,7 +10,15 @@ fi
 
 bash configure  --prefix=$PREFIX $OPTS
 
-make
+if [ "$(uname)" == "Darwin" ]; then
+    make
+else
+    # We have to disable address space randomization or the build will
+    # segfault. See
+    # https://github.com/emacs-mirror/emacs/blob/896e5802160c2797e689a7565599ebb1bd171295/etc/PROBLEMS#L2860.
+    setarch "$(uname -m)" -R make
+fi
+
 # make check
 make install
 
