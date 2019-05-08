@@ -18,6 +18,7 @@ else
     # We have to disable exec-shield or the build will
     # segfault. See
     # https://github.com/emacs-mirror/emacs/blob/896e5802160c2797e689a7565599ebb1bd171295/etc/PROBLEMS#L2860.
+    sysctl -a
     sysctl -w kernel.exec-shield=0
 fi
 
