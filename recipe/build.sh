@@ -1,3 +1,5 @@
+set -x
+
 if [ "$(uname)" == "Darwin" ]; then
     OPTS=""
     # The build has a hard time finding libtinfo, which is separated from
