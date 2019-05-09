@@ -12,15 +12,7 @@ fi
 
 bash configure  --prefix=$PREFIX $OPTS
 
-if [ "$(uname)" == "Darwin" ]; then
-    make
-else
-    # We have to disable address space randomization or the build will
-    # segfault. See
-    # https://github.com/emacs-mirror/emacs/blob/896e5802160c2797e689a7565599ebb1bd171295/etc/PROBLEMS#L2860.
-    sudo sysctl -w kernel.randomize_va_space=0
-fi
-
+make
 # make check
 make install
 
