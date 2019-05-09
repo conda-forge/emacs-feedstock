@@ -12,7 +12,7 @@ jobs:
     matrix:
       linux_:
         CONFIG: linux_
-        UPLOAD_PACKAGES: True
+        UPLOAD_PACKAGES: False
   steps:
   - script: |
       sudo pip install --upgrade pip
