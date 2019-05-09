@@ -9,3 +9,4 @@ provider:
   # Azure doesn't allow disabling address space randomization. This can be
   # removed for emacs 27.
   linux: circle
+  osx: azure
