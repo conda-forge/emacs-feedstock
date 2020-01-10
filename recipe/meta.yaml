@@ -14,7 +14,7 @@ source:
   sha256: 4d90e6751ad8967822c6e092db07466b9d383ef1653feb2f95c93e7de66d3485
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
@@ -31,6 +31,7 @@ requirements:
     - libtiff
     - giflib
     - gnutls
+    - libwebp-base  # [linux]
     - freetype        # [linux]
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
@@ -47,6 +48,7 @@ requirements:
     - libtiff
     - giflib
     - gnutls
+    - libwebp-base  # [linux]
     - freetype        # [linux]
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
