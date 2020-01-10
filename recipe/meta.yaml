@@ -31,6 +31,7 @@ requirements:
     - libtiff
     - giflib
     - gnutls
+    - libwebp-base  # [linux]
     - freetype        # [linux]
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
@@ -47,6 +48,7 @@ requirements:
     - libtiff
     - giflib
     - gnutls
+    - libwebp-base  # [linux]
     - freetype        # [linux]
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
