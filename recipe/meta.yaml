@@ -14,7 +14,7 @@ source:
   sha256: 4d90e6751ad8967822c6e092db07466b9d383ef1653feb2f95c93e7de66d3485
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
@@ -65,7 +65,7 @@ test:
 
 about:
   home: http://www.gnu.org/software/emacs/
-  license: GPL-3.0
+  license: GPL-3.0-only
   summary: 'GNU Emacs is an extensible, customizable text editor.'
   license_file: COPYING
 
