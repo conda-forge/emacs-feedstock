@@ -12,7 +12,13 @@ fi
 
 bash configure --with-modules --prefix=$PREFIX $OPTS
 
-make
+if [ "$(uname)" == "Darwin" ]; then
+    make
+else
+    # see https://github.com/moby/moby/issues/22801
+    setarch `uname -m` -R make
+fi
+
 # make check
 make install
 
