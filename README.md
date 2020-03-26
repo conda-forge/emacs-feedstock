@@ -3,7 +3,7 @@ About emacs
 
 Home: http://www.gnu.org/software/emacs/
 
-Package license: GPL-3.0
+Package license: GPL-3.0-only
 
 Feedstock license: BSD 3-Clause
 
