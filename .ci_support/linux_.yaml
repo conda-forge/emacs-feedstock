@@ -16,6 +16,8 @@ jpeg:
 - '9'
 libpng:
 - '1.6'
+librsvg:
+- '2'
 libtiff:
 - 4.1.0
 libxml2:
@@ -29,6 +31,8 @@ pin_run_as_build:
     max_pin: x
   libpng:
     max_pin: x.x
+  librsvg:
+    max_pin: x
   libtiff:
     max_pin: x
   libxml2:
