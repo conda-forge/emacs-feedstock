@@ -10,3 +10,4 @@ provider:
   # removed for emacs 27.
   linux: circle
   osx: azure
+conda_forge_output_validation: true
