@@ -1,10 +1,6 @@
-appveyor:
-  secure: {BINSTAR_TOKEN: tumuXLL8PU75WMnRDemRy02ruEq2RpNxeK3dz0MjFssnosPm2v4EFjfNB4PTotA1}
 compiler_stack: comp7
 max_py_ver: '37'
 max_r_ver: '35'
-travis:
-  secure: {BINSTAR_TOKEN: 3Bx1pWkf50f24iTZcbqGJsBUHTukfUv7HEk42fSvr7aimOEL0qWiNHSDN3wl9t/uvd/cYWRTQVgd9ukYkx/RGLLM01FPsODYDGiDGIFK6mO64SOC1ultLZOgWQ61deEfdIy95Hz+qADCxxl/U1K6HHE94VR27r/khZBKvd+h6i85WGBVNZtAcxHoHt6mYud5nv9XK/TtrEoh8FLj1ZiTqJJmiRFK/9ota+zc4npmU2stob1WQISrfUsc52wo3ktXrSKQ69kP+uMfI8CVDUWvqYunRO4HUH7rP4bSectIZ6kkb4KC/WfrRVLlDNj5c2OEywUYdWlndYYCRqo1DWlm4GBr1CrzqY9VV9n0Zy4lJQxyLbhJFQicm8UsI38CDkkbfQh5cHK/IJmuqrqICDqRKQqm3TaTcBe7VL4sWuUN3bmwkGIjN+rNrhLbWyFUjR+4fHsvqxukqBWZRh6Le/XBRVynR04qKWbYta4Sne0KGwnjc/ZUqI48l6u9mkLMmxrbUgJ1pIDdTlVxOZtdKAEf5VRIp/rWg5bJdqMG9UoAyH8pA3/nwDbDLWJcsOVQ/jRKo3skRno8iy6seVKW3dEA5dKrZWPzo03qk8z9NqkFhzcgVJ+CS4MTdl5PBjStqU8vp0jLefgg0+w3f34ziV7+zAAbfl15NFcQE88fLhiGTmU=}
 provider:
   # Azure doesn't allow disabling address space randomization. This can be
   # removed for emacs 27.
