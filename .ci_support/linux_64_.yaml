@@ -12,6 +12,8 @@ freetype:
 - 2.9.1
 giflib:
 - '5.2'
+gmp:
+- '6'
 jpeg:
 - '9'
 libpng:
@@ -23,9 +25,11 @@ libtiff:
 libxml2:
 - '2.9'
 ncurses:
-- '6.1'
+- '6.2'
 pin_run_as_build:
   freetype:
+    max_pin: x
+  gmp:
     max_pin: x
   jpeg:
     max_pin: x
@@ -41,5 +45,7 @@ pin_run_as_build:
     max_pin: x.x
   zlib:
     max_pin: x.x
+target_platform:
+- linux-64
 zlib:
 - '1.2'
