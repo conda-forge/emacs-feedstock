@@ -2,7 +2,7 @@
 # X, it is built with --without-x (terminal emacs only). Feel free to lift
 # either of these restrictions if you are able to get it to build.
 
-{% set version = "26.3" %}
+{% set version = "27.1" %}
 
 package:
   name: emacs
@@ -11,10 +11,10 @@ package:
 source:
   fn: emacs-{{ version }}.tar.xz
   url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
-  sha256: 4d90e6751ad8967822c6e092db07466b9d383ef1653feb2f95c93e7de66d3485
+  sha256: 4a4c128f915fc937d61edfc273c98106711b540c9be3cd5d2e2b9b5b2f172e41
 
 build:
-  number: 4
+  number: 0
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
@@ -32,6 +32,7 @@ requirements:
     - librsvg
     - giflib
     - gnutls
+    - gmp
     - freetype        # [linux]
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
@@ -48,6 +49,7 @@ requirements:
     - libtiff
     - giflib
     - gnutls
+    - gmp
     - freetype        # [linux]
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
