@@ -1,17 +1,21 @@
-MACOSX_DEPLOYMENT_TARGET:
-- '10.9'
 c_compiler:
-- clang
+- gcc
 c_compiler_version:
-- '9'
+- '7'
 channel_sources:
 - conda-forge,defaults
 channel_targets:
 - conda-forge main
-dbus:
-- '1'
+docker_image:
+- condaforge/linux-anvil-comp7
+freetype:
+- 2.9.1
 giflib:
 - '5.2'
+glib:
+- '2.58'
+gmp:
+- '6'
 jpeg:
 - '9'
 libpng:
@@ -22,14 +26,12 @@ libtiff:
 - 4.1.0
 libxml2:
 - '2.9'
-macos_machine:
-- x86_64-apple-darwin13.4.0
-macos_min_version:
-- '10.9'
 ncurses:
-- '6.1'
+- '6.2'
 pin_run_as_build:
-  dbus:
+  freetype:
+    max_pin: x
+  gmp:
     max_pin: x
   jpeg:
     max_pin: x
@@ -45,5 +47,7 @@ pin_run_as_build:
     max_pin: x.x
   zlib:
     max_pin: x.x
+target_platform:
+- linux-64
 zlib:
 - '1.2'
