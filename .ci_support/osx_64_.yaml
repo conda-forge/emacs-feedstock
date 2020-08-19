@@ -12,6 +12,8 @@ dbus:
 - '1'
 giflib:
 - '5.2'
+glib:
+- '2.58'
 gmp:
 - '6'
 jpeg:
