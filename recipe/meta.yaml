@@ -21,6 +21,7 @@ build:
 requirements:
   build:
     - pkg-config
+    - gnuconfig  # [unix]
     - {{ compiler('c') }}
   host:
     - libxml2
