@@ -13,6 +13,8 @@ else
     OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib"
 fi
 
+autoreconf -vfi
+
 bash configure --with-modules --prefix=$PREFIX $OPTS
 
 make

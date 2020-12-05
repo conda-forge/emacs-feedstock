@@ -12,6 +12,9 @@ source:
   fn: emacs-{{ version }}.tar.xz
   url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
   sha256: 4a4c128f915fc937d61edfc273c98106711b540c9be3cd5d2e2b9b5b2f172e41
+  patches:
+   - 0001-apple-silicon-configure.patch  # [osx]
+   - 0002-apple-silicon-resign-binary.patch  # [osx]
 
 build:
   number: 1
@@ -23,6 +26,10 @@ requirements:
     - pkg-config
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
+    - autoconf  # [unix]
+    - automake  # [unix]
+    - m4  # [unix]
+    - make  # [unix]
   host:
     - libxml2
     - ncurses
