@@ -15,6 +15,8 @@ source:
   patches:
    - 0001-apple-silicon-configure.patch  # [osx]
    - 0002-apple-silicon-resign-binary.patch  # [osx]
+   - 0003-apple-silicon-cross-compile-configure.patch  # [osx]
+   - 0004-apple-silicon-cross-compile-makefile.patch  # [osx]
 
 build:
   number: 1
@@ -30,6 +32,18 @@ requirements:
     - automake  # [unix]
     - m4  # [unix]
     - make  # [unix]
+    - libxml2  # [build_platform != target_platform]
+    - ncurses  # [build_platform != target_platform]
+    - dbus  # [build_platform != target_platform]
+    - jpeg  # [build_platform != target_platform]
+    - libpng  # [build_platform != target_platform]
+    - libtiff  # [build_platform != target_platform]
+    - librsvg  # [build_platform != target_platform]
+    - giflib  # [build_platform != target_platform]
+    - gnutls  # [build_platform != target_platform]
+    - gmp  # [build_platform != target_platform]
+    - glib  # [build_platform != target_platform]
+    - zlib  # [build_platform != target_platform]
   host:
     - libxml2
     - ncurses
