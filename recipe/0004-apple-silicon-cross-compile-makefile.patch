@@ -1,45 +1,29 @@
---- src/Makefile.in.orig	2020-12-05 21:51:55.000000000 -0800
-+++ src/Makefile.in	2020-12-05 22:15:06.000000000 -0800
-@@ -326,7 +326,17 @@
- GMP_LIB = @GMP_LIB@
+--- src/Makefile.in.orig	2020-12-07 13:55:20.000000000 -0800
++++ src/Makefile.in		2020-12-07 14:17:54.000000000 -0800
+@@ -327,6 +327,12 @@
  GMP_OBJ = @GMP_OBJ@
  
--RUN_TEMACS = ./temacs
-+# Hack for cross-compile on osx-arm64 using native binaries
+ RUN_TEMACS = ./temacs
 +cross_compiling = @cross_compiling@
 +ifeq ($(cross_compiling),yes)
-+  RUN_TEMACS = ../native-build/src/temacs
 +  libsrc_run = ../native-build/lib-src
 +else
-+  RUN_TEMACS = ./temacs
 +  libsrc_run = ../lib-src
 +endif
-+
-+
  
  # Whether builds should contain details. '--no-build-details' or empty.
  BUILD_DETAILS = @BUILD_DETAILS@
-@@ -575,6 +585,9 @@
-                 $(lispsource)/international/charprop.el ${charsets}
- ifeq ($(DUMPING),unexec)
- 	LC_ALL=C $(RUN_TEMACS) -batch $(BUILD_DETAILS) -l loadup --temacs=dump
-+ifeq ($(cross_compiling),yes)
-+	cp -f ../native-build/src/$@ .
-+endif
-   ifneq ($(PAXCTL_dumped),)
- 	      $(PAXCTL_dumped) emacs$(EXEEXT)
-   endif
-@@ -586,6 +599,9 @@
- ifeq ($(DUMPING),pdumper)
+@@ -587,6 +593,9 @@
  $(pdmp): emacs$(EXEEXT)
  	LC_ALL=C $(RUN_TEMACS) -batch $(BUILD_DETAILS) -l loadup --temacs=pdump
-+ifeq ($(cross_compiling),yes)
-+	cp -f ../native-build/src/$@ .
-+endif
  	cp -f $@ $(bootstrap_pdmp)
++else
++emacs.pdmp: emacs$(EXEEXT)
++	echo "Skipping pdump (not configured)"
  endif
  
-@@ -603,9 +619,9 @@
+ ## We run make-docfile twice because the command line may get too long
+@@ -603,9 +612,9 @@
  $(etc)/DOC: lisp.mk $(libsrc)/make-docfile$(EXEEXT) $(obj) $(lisp)
  	$(AM_V_GEN)$(MKDIR_P) $(etc)
  	$(AM_V_at)rm -f $(etc)/DOC
@@ -51,7 +35,7 @@
  	  $(shortlisp)
  
  $(libsrc)/make-docfile$(EXEEXT) $(libsrc)/make-fingerprint$(EXEEXT): \
-@@ -627,7 +643,7 @@
+@@ -627,7 +636,7 @@
  am__v_GLOBALS_1 =
  
  gl-stamp: $(libsrc)/make-docfile$(EXEEXT) $(GLOBAL_SOURCES)
@@ -60,7 +44,7 @@
  	$(AM_V_at)$(top_srcdir)/build-aux/move-if-change globals.tmp globals.h
  	$(AM_V_at)echo timestamp > $@
  
-@@ -641,7 +657,7 @@
+@@ -641,7 +650,7 @@
  	$(MAKE) -C $(dir $@) all
  
  ifeq ($(HAVE_PDUMPER),yes)

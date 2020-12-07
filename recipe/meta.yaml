@@ -1,6 +1,4 @@
-# Note: This recipe currently only works on OS X and Linux. Furthermore, on OS
-# X, it is built with --without-x (terminal emacs only). Feel free to lift
-# either of these restrictions if you are able to get it to build.
+# Note: This recipe currently only works on OS X and Linux.
 
 {% set version = "27.1" %}
 
@@ -15,8 +13,9 @@ source:
   patches:
    - 0001-apple-silicon-configure.patch  # [osx]
    - 0002-apple-silicon-resign-binary.patch  # [osx]
-   - 0003-apple-silicon-cross-compile-configure.patch  # [osx]
-   - 0004-apple-silicon-cross-compile-makefile.patch  # [osx]
+   - 0003-apple-silicon-cross-compile-configure.patch  # [osx and build_platform != target_platform]
+   - 0004-apple-silicon-cross-compile-makefile.patch  # [osx and build_platform != target_platform]
+   - 0005-apple-silicon-cross-compile-nextstep-makefile.patch  # [osx and build_platform != target_platform]
 
 build:
   number: 1

@@ -41,6 +41,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   export gl_cv_func_working_utimes=yes
   export gl_cv_func_open_slash=no
   export fu_cv_sys_stat_statfs2_bsize=yes
+  OPTS="$OPTS --with-pdumper=no --with-unexec=no --with-dumping=none"
 fi
 
 bash configure --with-modules --prefix=$PREFIX $OPTS
