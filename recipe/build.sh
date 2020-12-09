@@ -41,7 +41,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   export gl_cv_func_working_utimes=yes
   export gl_cv_func_open_slash=no
   export fu_cv_sys_stat_statfs2_bsize=yes
-  OPTS="$OPTS --with-pdumper=no --with-unexec=no --with-dumping=none"
+  OPTS="$OPTS --with-pdumper=yes --with-unexec=no --with-dumping=none"
 fi
 
 bash configure --with-modules --prefix=$PREFIX $OPTS
@@ -64,4 +64,8 @@ EOF
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/ebrowse $PREFIX/bin/ebrowse
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/emacsclient $PREFIX/bin/emacsclient
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/etags $PREFIX/bin/etags
+    if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
+	# Make an empty pdump file as a sentinel to post-link.sh
+        touch $PREFIX/Emacs.app/Contents/MacOS/Emacs.pdmp
+    fi
 fi

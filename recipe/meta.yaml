@@ -13,12 +13,13 @@ source:
   patches:
    - 0001-apple-silicon-configure.patch  # [osx]
    - 0002-apple-silicon-resign-binary.patch  # [osx]
-   - 0003-apple-silicon-cross-compile-configure.patch  # [osx and build_platform != target_platform]
-   - 0004-apple-silicon-cross-compile-makefile.patch  # [osx and build_platform != target_platform]
-   - 0005-apple-silicon-cross-compile-nextstep-makefile.patch  # [osx and build_platform != target_platform]
+   - 0003-macos-cross-compile-configure.patch  # [osx and build_platform != target_platform]
+   - 0004-macos-cross-compile-makefile.patch  # [osx and build_platform != target_platform]
+   - 0005-macos-cross-compile-nextstep-makefile.patch  # [osx and build_platform != target_platform]
+   - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
