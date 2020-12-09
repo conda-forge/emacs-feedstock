@@ -1,5 +1,8 @@
 set -x
 
+# Get an updated config.sub and config.guess
+cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
+
 if [ "$(uname)" == "Darwin" ]; then
     OPTS=""
     # The build has a hard time finding libtinfo, which is separated from
@@ -8,6 +11,37 @@ if [ "$(uname)" == "Darwin" ]; then
     export LDFLAGS="${LDFLAGS} -ltinfo"
 else
     OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib"
+fi
+
+autoreconf -vfi
+
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
+  (
+    mkdir -p native-build
+    pushd native-build
+
+    export CC=$CC_FOR_BUILD
+    export AR=($CC_FOR_BUILD -print-prog-name=ar)
+    export NM=($CC_FOR_BUILD -print-prog-name=nm)
+    export LDFLAGS=${LDFLAGS//$PREFIX/$BUILD_PREFIX}
+    export PKG_CONFIG_PATH=${BUILD_PREFIX}/lib/pkgconfig
+    export ac_cv_func_aligned_alloc=no
+    export host_alias=$build_alias
+
+    bash ../configure --with-modules --prefix=$BUILD_PREFIX $OPTS
+    make
+
+    popd
+  )
+  # And the config variables...
+  export gl_cv_func_getgroups_works=yes
+  export gl_cv_func_gettimeofday_clobber=no
+  export ac_cv_func_getgroups_works=yes
+  export ac_cv_func_mmap_fixed_mapped=yes
+  export gl_cv_func_working_utimes=yes
+  export gl_cv_func_open_slash=no
+  export fu_cv_sys_stat_statfs2_bsize=yes
+  OPTS="$OPTS --with-pdumper=yes --with-unexec=no --with-dumping=none"
 fi
 
 bash configure --with-modules --prefix=$PREFIX $OPTS
@@ -30,4 +64,8 @@ EOF
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/ebrowse $PREFIX/bin/ebrowse
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/emacsclient $PREFIX/bin/emacsclient
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/etags $PREFIX/bin/etags
+    if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
+	# Make an empty pdump file as a sentinel to post-link.sh
+        touch $PREFIX/Emacs.app/Contents/MacOS/Emacs.pdmp
+    fi
 fi
