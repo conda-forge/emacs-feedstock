@@ -33,7 +33,7 @@ requirements:
     - m4  # [unix]
     - make  # [unix]
     - gtk3  # [unix]
-    - harfbuzz # [unix]
+    - harfbuzz  # [unix]
     - libxml2  # [build_platform != target_platform]
     - ncurses  # [build_platform != target_platform]
     - dbus  # [build_platform != target_platform]
