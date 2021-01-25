@@ -58,21 +58,22 @@ requirements:
     - gnutls
     - gmp
     - glib
-    - freetype        # [linux]
-    - gtk3         # [linux]
-    - harfbuzz     # [linux]
+    - freetype  # [linux]
+    - cairo  # [linux]
+    - gtk3  # [linux]
+    - harfbuzz  # [linux]
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
     - xorg-libxfixes  # [linux]
     - xorg-libxft  # [linux]
-    - xorg-libxi   # [linux]
-    - xorg-libxrandr # [linux]
-    - xorg-libxcursor # [linux]
-    - xorg-libxcomposite # [linux]
-    - xorg-libxdamage # [linux]
-    - xorg-libxinerama # [linux]
-    - xorg-xineramaproto # [linux]
-    - xorg-libxtst # [linux]    
+    - xorg-libxi  # [linux]
+    - xorg-libxrandr  # [linux]
+    - xorg-libxcursor  # [linux]
+    - xorg-libxcomposite  # [linux]
+    - xorg-libxdamage  # [linux]
+    - xorg-libxinerama  # [linux]
+    - xorg-xineramaproto  # [linux]
+    - xorg-libxtst  # [linux]
     - zlib
 
   run:
@@ -86,21 +87,22 @@ requirements:
     - gnutls
     - gmp
     - glib
-    - freetype        # [linux]
-    - gtk3         # [linux]
-    - harfbuzz     # [linux]
+    - freetype  # [linux]
+    - cairo  # [linux]
+    - gtk3  # [linux]
+    - harfbuzz  # [linux]
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
     - xorg-libxfixes  # [linux]
     - xorg-libxft  # [linux]
-    - xorg-libxi   # [linux]
-    - xorg-libxrandr # [linux]
-    - xorg-libxcursor # [linux]
-    - xorg-libxcomposite # [linux]
-    - xorg-libxdamage # [linux]
-    - xorg-libxinerama # [linux]
-    - xorg-xineramaproto # [linux]
-    - xorg-libxtst # [linux]
+    - xorg-libxi  # [linux]
+    - xorg-libxrandr  # [linux]
+    - xorg-libxcursor  # [linux]
+    - xorg-libxcomposite  # [linux]
+    - xorg-libxdamage  # [linux]
+    - xorg-libxinerama  # [linux]
+    - xorg-xineramaproto  # [linux]
+    - xorg-libxtst  # [linux]
     - zlib
 
 test:
