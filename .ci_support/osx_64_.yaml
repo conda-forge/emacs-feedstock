@@ -13,7 +13,7 @@ dbus:
 giflib:
 - '5.2'
 glib:
-- '2.66'
+- '2'
 gmp:
 - '6'
 jpeg:
@@ -23,7 +23,7 @@ libpng:
 librsvg:
 - '2'
 libtiff:
-- 4.1.0
+- '4'
 libxml2:
 - '2.9'
 macos_machine:
