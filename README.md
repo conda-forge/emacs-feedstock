@@ -1,5 +1,5 @@
-About emacs
-===========
+About emacs-gtk
+===============
 
 Home: http://www.gnu.org/software/emacs/
 
@@ -67,27 +67,27 @@ Current release info
 
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
-| [![Conda Recipe](https://img.shields.io/badge/recipe-emacs-green.svg)](https://anaconda.org/conda-forge/emacs) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/emacs.svg)](https://anaconda.org/conda-forge/emacs) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/emacs.svg)](https://anaconda.org/conda-forge/emacs) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/emacs.svg)](https://anaconda.org/conda-forge/emacs) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-emacs--gtk-green.svg)](https://anaconda.org/conda-forge/emacs-gtk) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/emacs-gtk.svg)](https://anaconda.org/conda-forge/emacs-gtk) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/emacs-gtk.svg)](https://anaconda.org/conda-forge/emacs-gtk) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/emacs-gtk.svg)](https://anaconda.org/conda-forge/emacs-gtk) |
 
-Installing emacs
-================
+Installing emacs-gtk
+====================
 
-Installing `emacs` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
+Installing `emacs-gtk` from the `conda-forge` channel can be achieved by adding `conda-forge` to your channels with:
 
 ```
 conda config --add channels conda-forge
 ```
 
-Once the `conda-forge` channel has been enabled, `emacs` can be installed with:
+Once the `conda-forge` channel has been enabled, `emacs-gtk` can be installed with:
 
 ```
-conda install emacs
+conda install emacs-gtk
 ```
 
-It is possible to list all of the versions of `emacs` available on your platform with:
+It is possible to list all of the versions of `emacs-gtk` available on your platform with:
 
 ```
-conda search emacs --channel conda-forge
+conda search emacs-gtk --channel conda-forge
 ```
 
 
@@ -129,17 +129,17 @@ Terminology
                   produce the finished article (built conda distributions)
 
 
-Updating emacs-feedstock
-========================
+Updating emacs-gtk-feedstock
+============================
 
-If you would like to improve the emacs recipe or build a new
+If you would like to improve the emacs-gtk recipe or build a new
 package version, please fork this repository and submit a PR. Upon submission,
 your changes will be run on the appropriate platforms to give the reviewer an
 opportunity to confirm that the changes result in a successful build. Once
 merged, the recipe will be re-built and uploaded automatically to the
 `conda-forge` channel, whereupon the built conda packages will be available for
 everybody to install and use from the `conda-forge` channel.
-Note that all branches in the conda-forge/emacs-feedstock are
+Note that all branches in the conda-forge/emacs-gtk-feedstock are
 immediately built and any created packages are uploaded, so PRs should be based
 on branches in forks and branches in the main repository should only be used to
 build distinct package versions.
