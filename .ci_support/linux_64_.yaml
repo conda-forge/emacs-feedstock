@@ -2,6 +2,8 @@ c_compiler:
 - gcc
 c_compiler_version:
 - '9'
+cairo:
+- '1.16'
 cdt_name:
 - cos6
 channel_sources:
@@ -15,9 +17,11 @@ freetype:
 giflib:
 - '5.2'
 glib:
-- '2.66'
+- '2'
 gmp:
 - '6'
+harfbuzz:
+- '2'
 jpeg:
 - '9'
 libpng:
@@ -25,15 +29,19 @@ libpng:
 librsvg:
 - '2'
 libtiff:
-- 4.1.0
+- '4'
 libxml2:
 - '2.9'
 ncurses:
 - '6.2'
 pin_run_as_build:
+  cairo:
+    max_pin: x.x
   freetype:
     max_pin: x
   gmp:
+    max_pin: x
+  harfbuzz:
     max_pin: x
   jpeg:
     max_pin: x
@@ -51,5 +59,8 @@ pin_run_as_build:
     max_pin: x.x
 target_platform:
 - linux-64
+zip_keys:
+- - cdt_name
+  - docker_image
 zlib:
 - '1.2'
