@@ -19,7 +19,7 @@ source:
    - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
 
 build:
-  number: 3
+  number: 4
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
@@ -32,6 +32,8 @@ requirements:
     - automake  # [unix]
     - m4  # [unix]
     - make  # [unix]
+    - gtk3  # [build_platform != target_platform]
+    - harfbuzz  # [build_platform != target_platform]
     - libxml2  # [build_platform != target_platform]
     - ncurses  # [build_platform != target_platform]
     - dbus  # [build_platform != target_platform]
@@ -56,11 +58,22 @@ requirements:
     - gnutls
     - gmp
     - glib
-    - freetype        # [linux]
+    - freetype  # [linux]
+    - cairo  # [linux]
+    - gtk3  # [linux]
+    - harfbuzz  # [linux]
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
     - xorg-libxfixes  # [linux]
     - xorg-libxft  # [linux]
+    - xorg-libxi  # [linux]
+    - xorg-libxrandr  # [linux]
+    - xorg-libxcursor  # [linux]
+    - xorg-libxcomposite  # [linux]
+    - xorg-libxdamage  # [linux]
+    - xorg-libxinerama  # [linux]
+    - xorg-xineramaproto  # [linux]
+    - xorg-libxtst  # [linux]
     - zlib
 
   run:
@@ -74,11 +87,22 @@ requirements:
     - gnutls
     - gmp
     - glib
-    - freetype        # [linux]
+    - freetype  # [linux]
+    - cairo  # [linux]
+    - gtk3  # [linux]
+    - harfbuzz  # [linux]
     - xorg-libxaw  # [linux]
     - xorg-libxpm  # [linux]
     - xorg-libxfixes  # [linux]
     - xorg-libxft  # [linux]
+    - xorg-libxi  # [linux]
+    - xorg-libxrandr  # [linux]
+    - xorg-libxcursor  # [linux]
+    - xorg-libxcomposite  # [linux]
+    - xorg-libxdamage  # [linux]
+    - xorg-libxinerama  # [linux]
+    - xorg-xineramaproto  # [linux]
+    - xorg-libxtst  # [linux]
     - zlib
 
 test:
