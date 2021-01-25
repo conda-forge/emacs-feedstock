@@ -113,6 +113,7 @@ test:
     - $PREFIX/bin/ebrowse --help
     - $PREFIX/bin/etags --help
     - $PREFIX/bin/emacs -nw -Q --kill --batch
+    - $PREFIX/bin/emacs -Q --kill --batch
 
 about:
   home: http://www.gnu.org/software/emacs/
