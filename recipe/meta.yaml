@@ -3,7 +3,7 @@
 {% set version = "27.1" %}
 
 package:
-  name: emacs
+  name: emacs-gtk
   version: {{ version }}
 
 source:
@@ -19,7 +19,7 @@ source:
    - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
 
 build:
-  number: 4
+  number: 1
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
@@ -32,8 +32,8 @@ requirements:
     - automake  # [unix]
     - m4  # [unix]
     - make  # [unix]
-    - gtk3  # [unix]
-    - harfbuzz  # [unix]
+    - gtk3  # [build_platform != target_platform]
+    - harfbuzz  # [build_platform != target_platform]
     - libxml2  # [build_platform != target_platform]
     - ncurses  # [build_platform != target_platform]
     - dbus  # [build_platform != target_platform]
