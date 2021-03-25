@@ -1,6 +1,6 @@
 # Note: This recipe currently only works on OS X and Linux.
 
-{% set version = "27.1" %}
+{% set version = "27.2" %}
 
 package:
   name: emacs
@@ -9,17 +9,17 @@ package:
 source:
   fn: emacs-{{ version }}.tar.xz
   url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
-  sha256: 4a4c128f915fc937d61edfc273c98106711b540c9be3cd5d2e2b9b5b2f172e41
+  sha256: b4a7cc4e78e63f378624e0919215b910af5bb2a0afc819fad298272e9f40c1b9
   patches:
-   - 0001-apple-silicon-configure.patch  # [osx]
-   - 0002-apple-silicon-resign-binary.patch  # [osx]
-   - 0003-macos-cross-compile-configure.patch  # [osx and build_platform != target_platform]
-   - 0004-macos-cross-compile-makefile.patch  # [osx and build_platform != target_platform]
-   - 0005-macos-cross-compile-nextstep-makefile.patch  # [osx and build_platform != target_platform]
-   - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
+    - 0001-apple-silicon-configure.patch # [osx]
+    - 0002-apple-silicon-resign-binary.patch # [osx]
+    - 0003-macos-cross-compile-configure.patch # [osx and build_platform != target_platform]
+    - 0004-macos-cross-compile-makefile.patch # [osx and build_platform != target_platform]
+    - 0005-macos-cross-compile-nextstep-makefile.patch # [osx and build_platform != target_platform]
+    - 0006-macos-cross-compile-post-install-pdump-path.patch # [osx and build_platform != target_platform]
 
 build:
-  number: 4
+  number: 0
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
@@ -118,7 +118,7 @@ test:
 about:
   home: http://www.gnu.org/software/emacs/
   license: GPL-3.0-only
-  summary: 'GNU Emacs is an extensible, customizable text editor.'
+  summary: GNU Emacs is an extensible, customizable text editor.
   license_file: COPYING
 
 extra:
