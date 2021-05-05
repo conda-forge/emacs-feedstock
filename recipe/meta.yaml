@@ -11,7 +11,6 @@ source:
   url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
   sha256: b4a7cc4e78e63f378624e0919215b910af5bb2a0afc819fad298272e9f40c1b9
   patches:
-    - 0001-apple-silicon-configure.patch # [osx]
     - 0002-apple-silicon-resign-binary.patch # [osx]
     - 0003-macos-cross-compile-configure.patch # [osx and build_platform != target_platform]
     - 0004-macos-cross-compile-makefile.patch # [osx and build_platform != target_platform]
