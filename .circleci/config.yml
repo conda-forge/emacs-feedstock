@@ -11,7 +11,7 @@ jobs:
     environment:
       - CONFIG: "linux_64_"
       - UPLOAD_PACKAGES: "True"
-        DOCKER_IMAGE: "quay.io/condaforge/linux-anvil-comp7"
+        DOCKER_IMAGE: "quay.io/condaforge/linux-anvil-cos7-x86_64"
     steps:
       - checkout
       - run:
@@ -24,6 +24,11 @@ jobs:
           command: |
             export CI=circle
             export FEEDSTOCK_NAME=$(basename ${CIRCLE_PROJECT_REPONAME})
+            if [[ "${CIRCLE_PR_NUMBER:-}" == "" ]]; then
+              export IS_PR_BUILD="False"
+            else
+              export IS_PR_BUILD="True"
+            fi
             ./.scripts/run_docker_build.sh
 
 workflows:
