@@ -3,7 +3,7 @@ MACOSX_DEPLOYMENT_TARGET:
 c_compiler:
 - clang
 c_compiler_version:
-- '11'
+- '12'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -29,7 +29,7 @@ libxml2:
 macos_machine:
 - x86_64-apple-darwin13.4.0
 ncurses:
-- '6.2'
+- '6'
 pin_run_as_build:
   dbus:
     max_pin: x
@@ -44,8 +44,6 @@ pin_run_as_build:
   libtiff:
     max_pin: x
   libxml2:
-    max_pin: x.x
-  ncurses:
     max_pin: x.x
   zlib:
     max_pin: x.x
