@@ -13,14 +13,7 @@ Current build status
 ====================
 
 
-<table><tr>
-    <td>CircleCI</td>
-    <td>
-      <a href="https://circleci.com/gh/conda-forge/emacs-feedstock">
-        <img alt="Linux" src="https://img.shields.io/circleci/project/github/conda-forge/emacs-feedstock/main.svg?label=Linux">
-      </a>
-    </td>
-  </tr>
+<table>
     
   <tr>
     <td>Azure</td>
