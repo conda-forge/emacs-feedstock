@@ -5,6 +5,6 @@ github:
   branch_name: main
   tooling_branch_name: main
 provider:
-  linux: circle
+  linux: azure
   osx: azure
 test_on_native_only: true
