@@ -5,6 +5,13 @@ cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
 
 if [ "$(uname)" == "Darwin" ]; then
     OPTS=""
+    # This magic value corresponds to macos 10.9, the
+    if [[ $target_platform == "osx-64" ]]; then
+        # This magic value corresponds to macos 10.9, see
+        # https://github.com/emacs-mirror/emacs/blob/575c3beb4c001687ce7a4581de005a16d6f2e081/nextstep/INSTALL#L48
+        OPTS="${OPTS} -DMAC_OS_X_VERSION_MIN_REQUIRED=1090"
+    fi
+
     # The build has a hard time finding libtinfo, which is separated from
     # libncurses. See
     # https://github.com/conda-forge/emacs-feedstock/pull/16#issuecomment-334241528
