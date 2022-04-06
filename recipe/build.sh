@@ -72,6 +72,6 @@ EOF
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/etags $PREFIX/bin/etags
     if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
 	# Make an empty pdump file as a sentinel to post-link.sh
-        touch $PREFIX/Emacs.app/Contents/MacOS/Emacs.pdmp
+        touch $PREFIX/Emacs.app/Contents/MacOS/libexec/Emacs.pdmp
     fi
 fi
