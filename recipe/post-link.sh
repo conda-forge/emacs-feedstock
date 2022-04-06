@@ -3,6 +3,7 @@
 set -e
 
 if [ "$(uname)" == "Darwin" ]; then
+   ls -Rl ${PREFIX}/Emacs.app
    pdump_file="${PREFIX}/Emacs.app/Contents/MacOS/Emacs.pdmp"
 
    if [ ! -s $pdump_file ]; then
