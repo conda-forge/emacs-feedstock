@@ -1,6 +1,6 @@
 # Note: This recipe currently only works on OS X and Linux.
 
-{% set version = "27.2" %}
+{% set version = "28.1" %}
 
 package:
   name: emacs
@@ -9,7 +9,7 @@ package:
 source:
   fn: emacs-{{ version }}.tar.xz
   url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
-  sha256: b4a7cc4e78e63f378624e0919215b910af5bb2a0afc819fad298272e9f40c1b9
+  sha256: 28b1b3d099037a088f0a4ca251d7e7262eab5ea1677aabffa6c4426961ad75e1
   patches:
     - 0002-apple-silicon-resign-binary.patch  # [osx]
     - 0003-macos-cross-compile-configure.patch  # [osx and build_platform != target_platform]
@@ -18,7 +18,7 @@ source:
     - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
 
 build:
-  number: 3
+  number: 0
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
@@ -76,6 +76,7 @@ requirements:
     - zlib
 
   run:
+    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
     - libxml2
     - ncurses
     - dbus  # [osx]

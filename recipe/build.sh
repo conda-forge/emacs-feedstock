@@ -5,6 +5,7 @@ cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
 
 if [ "$(uname)" == "Darwin" ]; then
     OPTS=""
+
     # The build has a hard time finding libtinfo, which is separated from
     # libncurses. See
     # https://github.com/conda-forge/emacs-feedstock/pull/16#issuecomment-334241528
@@ -66,6 +67,6 @@ EOF
     ln -s $PREFIX/Emacs.app/Contents/MacOS/bin/etags $PREFIX/bin/etags
     if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
 	# Make an empty pdump file as a sentinel to post-link.sh
-        touch $PREFIX/Emacs.app/Contents/MacOS/Emacs.pdmp
+        touch $PREFIX/Emacs.app/Contents/MacOS/libexec/Emacs.pdmp
     fi
 fi

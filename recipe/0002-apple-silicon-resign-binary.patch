@@ -1,11 +1,11 @@
---- src/Makefile.in.orig	2021-05-05 14:21:56.000000000 -0700
-+++ src/Makefile.in	2021-05-05 14:21:59.000000000 -0700
-@@ -339,7 +339,7 @@
+--- src/Makefile.in.orig	2022-04-04 15:19:35.000000000 -0700
++++ src/Makefile.in	2022-04-04 15:20:04.000000000 -0700
+@@ -347,7 +347,7 @@
  
- ## ARM Macs require that all code have a valid signature.  Since pump
+ ## ARM Macs require that all code have a valid signature.  Since pdump
  ## invalidates the signature, we must re-sign to fix it.
--DO_CODESIGN=$(patsubst arm-apple-darwin%,yes,@configuration@)
+-DO_CODESIGN=$(patsubst aarch64-apple-darwin%,yes,@configuration@)
 +DO_CODESIGN=$(patsubst arm64-apple-darwin%,yes,@configuration@)
  
- # 'make' verbosity.
- AM_DEFAULT_VERBOSITY = @AM_DEFAULT_VERBOSITY@
+ -include ${top_builddir}/src/verbose.mk
+ 
