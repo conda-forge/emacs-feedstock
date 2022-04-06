@@ -3,8 +3,7 @@
 set -e
 
 if [ "$(uname)" == "Darwin" ]; then
-   ls -Rl ${PREFIX}/Emacs.app
-   pdump_file="${PREFIX}/Emacs.app/Contents/MacOS/Emacs.pdmp"
+   pdump_file="${PREFIX}/Emacs.app/Contents/MacOS/libexec/Emacs.pdmp"
 
    if [ ! -s $pdump_file ]; then
       # Empty pdump file, we need to generate it now.
