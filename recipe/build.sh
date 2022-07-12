@@ -70,3 +70,15 @@ EOF
         touch $PREFIX/Emacs.app/Contents/MacOS/libexec/Emacs.pdmp
     fi
 fi
+
+if [ "$(uname)" == "Linux" ]; then
+    mkdir -p $PREFIX/share/emacs/site-lisp
+    cat <<EOF > $PREFIX/share/emacs/site-lisp/site-start.el
+;; Fix info directory default
+;; https://github.com/conda-forge/emacs-feedstock/issues/60
+
+(setq configure-info-directory (string-replace "\0" "" configure-info-directory))
+(setf (car Info-default-directory-list) configure-info-directory)
+
+EOF
+fi 
