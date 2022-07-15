@@ -16,6 +16,7 @@ source:
     - 0004-macos-cross-compile-makefile.patch  # [osx and build_platform != target_platform]
     - 0005-macos-cross-compile-nextstep-makefile.patch  # [osx and build_platform != target_platform]
     - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
+    - 0007-configure-info-dir.patch
 
 build:
   number: 1

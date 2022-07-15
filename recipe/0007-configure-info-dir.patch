@@ -1,0 +1,12 @@
+diff -ruN -x __pycache__ -x obj -x '*~' -x tags -x TAGS emacs-28.1.orig/src/callproc.c emacs-28.1/src/callproc.c
+--- emacs-28.1.orig/src/callproc.c	2022-03-11 08:04:22.000000000 +0100
++++ emacs-28.1/src/callproc.c	2022-07-15 17:39:39.634531298 +0200
+@@ -2062,7 +2062,7 @@
+ This is the name of the directory in which the build procedure installed
+ Emacs's info files; the default value for `Info-default-directory-list'
+ includes this.  */);
+-  Vconfigure_info_directory = build_string (PATH_INFO);
++  Vconfigure_info_directory = build_string ((char volatile *)PATH_INFO);
+ 
+   DEFVAR_LISP ("shared-game-score-directory", Vshared_game_score_directory,
+ 	       doc: /* Directory of score files for games which come with GNU Emacs.
