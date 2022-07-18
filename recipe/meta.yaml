@@ -19,7 +19,7 @@ source:
     - 0007-configure-info-dir.patch
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
