@@ -1,9 +1,9 @@
 c_compiler:
 - gcc
 c_compiler_version:
-- '10'
+- '11'
 cairo:
-- '1.16'
+- '1'
 cdt_name:
 - cos6
 channel_sources:
@@ -23,7 +23,7 @@ gmp:
 gnutls:
 - '3.7'
 harfbuzz:
-- '5'
+- '6'
 jpeg:
 - '9'
 libpng:
@@ -31,32 +31,11 @@ libpng:
 librsvg:
 - '2'
 libtiff:
-- '4'
+- '4.4'
 libxml2:
-- '2.9'
+- '2.10'
 ncurses:
 - '6'
-pin_run_as_build:
-  cairo:
-    max_pin: x.x
-  freetype:
-    max_pin: x
-  gmp:
-    max_pin: x
-  harfbuzz:
-    max_pin: x
-  jpeg:
-    max_pin: x
-  libpng:
-    max_pin: x.x
-  librsvg:
-    max_pin: x
-  libtiff:
-    max_pin: x
-  libxml2:
-    max_pin: x.x
-  zlib:
-    max_pin: x.x
 target_platform:
 - linux-64
 zlib:

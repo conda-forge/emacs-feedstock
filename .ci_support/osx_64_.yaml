@@ -27,30 +27,13 @@ libpng:
 librsvg:
 - '2'
 libtiff:
-- '4'
+- '4.4'
 libxml2:
-- '2.9'
+- '2.10'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 ncurses:
 - '6'
-pin_run_as_build:
-  dbus:
-    max_pin: x
-  gmp:
-    max_pin: x
-  jpeg:
-    max_pin: x
-  libpng:
-    max_pin: x.x
-  librsvg:
-    max_pin: x
-  libtiff:
-    max_pin: x
-  libxml2:
-    max_pin: x.x
-  zlib:
-    max_pin: x.x
 target_platform:
 - osx-64
 zlib:
