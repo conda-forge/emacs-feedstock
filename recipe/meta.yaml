@@ -18,7 +18,7 @@ source:
     - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
@@ -36,7 +36,7 @@ requirements:
     - libxml2  # [build_platform != target_platform]
     - ncurses  # [build_platform != target_platform]
     - dbus  # [build_platform != target_platform]
-    - jpeg  # [build_platform != target_platform]
+    - libjpeg-turbo   # [build_platform != target_platform]
     - libpng  # [build_platform != target_platform]
     - libtiff  # [build_platform != target_platform]
     - librsvg  # [build_platform != target_platform]
@@ -49,7 +49,7 @@ requirements:
     - libxml2
     - ncurses
     - dbus  # [osx]
-    - jpeg
+    - libjpeg-turbo
     - libpng
     - libtiff
     - librsvg
@@ -80,7 +80,7 @@ requirements:
     - libxml2
     - ncurses
     - dbus  # [osx]
-    - jpeg
+    - libjpeg-turbo
     - libpng
     - libtiff
     - giflib
