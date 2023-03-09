@@ -1,11 +1,11 @@
-About emacs
-===========
+About emacs-feedstock
+=====================
+
+Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/emacs-feedstock/blob/main/LICENSE.txt)
 
 Home: http://www.gnu.org/software/emacs/
 
 Package license: GPL-3.0-only
-
-Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/emacs-feedstock/blob/main/LICENSE.txt)
 
 Summary: GNU Emacs is an extensible, customizable text editor.
 

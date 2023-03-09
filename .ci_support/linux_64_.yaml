@@ -24,8 +24,8 @@ gnutls:
 - '3.7'
 harfbuzz:
 - '6'
-jpeg:
-- '9'
+libjpeg_turbo:
+- 2.1.5
 libpng:
 - '1.6'
 librsvg:
