@@ -1,7 +1,7 @@
 c_compiler:
 - gcc
 c_compiler_version:
-- '11'
+- '12'
 cairo:
 - '1'
 cdt_name:
@@ -33,7 +33,7 @@ librsvg:
 libtiff:
 - '4.5'
 libxml2:
-- '2.10'
+- '2.11'
 ncurses:
 - '6'
 target_platform:
