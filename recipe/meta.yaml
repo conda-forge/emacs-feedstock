@@ -27,6 +27,7 @@ requirements:
     - pkg-config
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
+    - sysroot_linux-64 2.17  # [linux64]
     - autoconf  # [unix]
     - automake  # [unix]
     - m4  # [unix]
