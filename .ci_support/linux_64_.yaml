@@ -1,11 +1,11 @@
 c_compiler:
 - gcc
 c_compiler_version:
-- '11'
+- '12'
 cairo:
 - '1'
 cdt_name:
-- cos6
+- cos7
 channel_sources:
 - conda-forge
 channel_targets:
@@ -23,7 +23,7 @@ gmp:
 gnutls:
 - '3.7'
 harfbuzz:
-- '6'
+- '7'
 libjpeg_turbo:
 - 2.1.5
 libpng:
@@ -33,7 +33,7 @@ librsvg:
 libtiff:
 - '4.5'
 libxml2:
-- '2.10'
+- '2.11'
 ncurses:
 - '6'
 target_platform:

@@ -18,7 +18,7 @@ source:
     - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
@@ -27,6 +27,7 @@ requirements:
     - pkg-config
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
+    - sysroot_linux-64 2.17  # [linux64]
     - autoconf  # [unix]
     - automake  # [unix]
     - m4  # [unix]

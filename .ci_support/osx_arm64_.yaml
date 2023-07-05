@@ -3,7 +3,7 @@ MACOSX_DEPLOYMENT_TARGET:
 c_compiler:
 - clang
 c_compiler_version:
-- '14'
+- '15'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -27,7 +27,7 @@ librsvg:
 libtiff:
 - '4.5'
 libxml2:
-- '2.10'
+- '2.11'
 macos_machine:
 - arm64-apple-darwin20.0.0
 ncurses:
