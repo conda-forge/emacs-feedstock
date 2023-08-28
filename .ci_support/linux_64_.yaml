@@ -23,7 +23,7 @@ gmp:
 gnutls:
 - '3.7'
 harfbuzz:
-- '7'
+- '8'
 libjpeg_turbo:
 - 2.1.5
 libpng:
