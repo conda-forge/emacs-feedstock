@@ -18,7 +18,7 @@ source:
     - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
 
 build:
-  number: 3
+  number: 4
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
