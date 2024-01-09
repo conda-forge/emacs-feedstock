@@ -46,6 +46,7 @@ requirements:
     - gmp  # [build_platform != target_platform]
     - glib  # [build_platform != target_platform]
     - zlib  # [build_platform != target_platform]
+    - tree_sitter
   host:
     - libxml2
     - ncurses
@@ -75,6 +76,7 @@ requirements:
     - xorg-xineramaproto  # [linux]
     - xorg-libxtst  # [linux]
     - zlib
+    - tree_sitter
 
   run:
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
@@ -105,6 +107,7 @@ requirements:
     - xorg-xineramaproto  # [linux]
     - xorg-libxtst  # [linux]
     - zlib
+    - tree_sitter_languages
 
 test:
   commands:
