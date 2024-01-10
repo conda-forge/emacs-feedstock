@@ -30,7 +30,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
     export host_alias=$build_alias
 
     bash ../configure --with-modules --prefix=$BUILD_PREFIX $OPTS
-    make
+    make V=1
 
     popd
   )
@@ -47,7 +47,7 @@ fi
 
 bash configure --with-modules --prefix=$PREFIX $OPTS
 
-make
+make V=1
 
 # make check
 make install
