@@ -1,0 +1,13 @@
+diff --git a/lisp/Makefile.in b/lisp/Makefile.in
+index 0a534a278f7..0c7b440ef5c 100644
+--- a/lisp/Makefile.in
++++ b/lisp/Makefile.in
+@@ -197,7 +197,7 @@ org-manuals: main-first
+ # need leim-list.el at about the same time, so ensure that it's
+ # generated, too.
+ autoloads: $(lisp)/emacs-lisp/loaddefs-gen.elc gen-lisp
+-	$(AM_V_GEN)$(emacs) \
++	$(AM_V_GEN)$(libsrc_run)$(emacs) \
+             -l $(lisp)/emacs-lisp/loaddefs-gen.elc \
+ 	    -f loaddefs-generate--emacs-batch ${SUBDIRS_ALMOST}
+ 
