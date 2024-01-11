@@ -1,13 +1,19 @@
 diff --git a/lisp/Makefile.in b/lisp/Makefile.in
-index 0a534a278f7..0c7b440ef5c 100644
+index 0a534a278f7..f327772be30 100644
 --- a/lisp/Makefile.in
 +++ b/lisp/Makefile.in
-@@ -197,7 +197,7 @@ org-manuals: main-first
- # need leim-list.el at about the same time, so ensure that it's
- # generated, too.
- autoloads: $(lisp)/emacs-lisp/loaddefs-gen.elc gen-lisp
--	$(AM_V_GEN)$(emacs) \
-+	$(AM_V_GEN)$(libsrc_run)$(emacs) \
-             -l $(lisp)/emacs-lisp/loaddefs-gen.elc \
- 	    -f loaddefs-generate--emacs-batch ${SUBDIRS_ALMOST}
+@@ -53,7 +53,13 @@ FIND_DELETE =
+ # We never change directory before running Emacs, so a relative file
+ # name is fine, and makes life easier.  If we need to change
+ # directory, we can use emacs --chdir.
+-EMACS = ../src/emacs${EXEEXT}
++
++cross_compiling = @cross_compiling@
++ifeq ($(cross_compiling),yes)
++  EMACS = ../native-build/src/emacs${EXEEXT}
++else
++  EMACS = ../native-build/src/emacs${EXEEXT}
++endif
+ 
+ # Command line flags for Emacs.
  
