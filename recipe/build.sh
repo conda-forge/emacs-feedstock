@@ -4,7 +4,7 @@ set -x
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
 
 if [ "$(uname)" == "Darwin" ]; then
-    OPTS=""
+    OPTS="--with-tree-sitter"
 
     # The build has a hard time finding libtinfo, which is separated from
     # libncurses. See
