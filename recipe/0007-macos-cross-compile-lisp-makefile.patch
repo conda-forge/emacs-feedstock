@@ -12,7 +12,7 @@ index 0a534a278f7..f327772be30 100644
 +ifeq ($(cross_compiling),yes)
 +  EMACS = ../native-build/src/emacs${EXEEXT}
 +else
-+  EMACS = ../native-build/src/emacs${EXEEXT}
++  EMACS = ../src/emacs${EXEEXT}
 +endif
  
  # Command line flags for Emacs.
