@@ -47,7 +47,7 @@ fi
 
 bash configure --with-modules --prefix=$PREFIX $OPTS
 
-make V=1
+make -d V=1
 
 # make check
 make install
