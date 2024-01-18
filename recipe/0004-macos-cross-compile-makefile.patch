@@ -1,52 +1,34 @@
---- src/Makefile.in.orig	2020-12-07 13:55:20.000000000 -0800
-+++ src/Makefile.in		2020-12-07 14:17:54.000000000 -0800
-@@ -327,6 +327,12 @@
- GMP_OBJ = @GMP_OBJ@
+diff --git a/Makefile.in b/Makefile.in
+index f5fda0eb61a..6812a1c51ef 100644
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -263,7 +263,7 @@ lisppath=
+ # This should be a colon-separated list of directories.
+ # Normally it points to the lisp/ directory in the sources.
+ # NB lread.c relies on lisp/ being first here.
+-buildlisppath=${abs_srcdir}/lisp
++buildlisppath=${abs_srcdir}/lisp:../lisp
  
- RUN_TEMACS = ./temacs
-+cross_compiling = @cross_compiling@
-+ifeq ($(cross_compiling),yes)
-+  libsrc_run = ../native-build/lib-src
-+else
-+  libsrc_run = ../lib-src
-+endif
+ # Where to install the other architecture-independent
+ # data files distributed with Emacs (like the tutorial,
+@@ -416,19 +416,7 @@ advice-on-failure:
+ 	@exit ${exit-status}
  
- # Whether builds should contain details. '--no-build-details' or empty.
- BUILD_DETAILS = @BUILD_DETAILS@
-@@ -587,6 +593,9 @@
- $(pdmp): emacs$(EXEEXT)
- 	LC_ALL=C $(RUN_TEMACS) -batch $(BUILD_DETAILS) -l loadup --temacs=pdump
- 	cp -f $@ $(bootstrap_pdmp)
-+else
-+emacs.pdmp: emacs$(EXEEXT)
-+	echo "Skipping pdump (not configured)"
- endif
+ sanity-check:
+-	@[ -f .no-advice-on-failure ] && exit 0; true
+-	@v=$$(src/emacs${EXEEXT} --batch --eval \
+-	  '(progn (defun f (n) (if (= 0 n) 1 (* n (f (- n 1))))) (princ (f 10)))' \
+-	  2> /dev/null); \
+-	[ "X$$v" = "X3628800" ] && exit 0; \
+-	echo >&2 '***'; \
+-	echo >&2 '*** '"\"make ${make-target}\" succeeded, but Emacs is not functional."; \
+-	echo >&2 '***'; \
+-	cat Makefile | \
+-	  sed -n '/^# ADVICE-ON-FAILURE-BEGIN:${make-target}/,$${p;/^# ADVICE-ON-FAILURE-END:${make-target}/q;};' | \
+-	  sed 's/^# /*** /' | grep -v '^\*\*\* ADVICE-ON-FAILURE-' >&2; \
+-	echo >&2 '***'; \
+-	exit 1
++	exit 0
  
- ## We run make-docfile twice because the command line may get too long
-@@ -603,7 +612,7 @@
- $(etc)/DOC: $(libsrc)/make-docfile$(EXEEXT) $(doc_obj)
- 	$(AM_V_GEN)$(MKDIR_P) $(etc)
- 	$(AM_V_at)rm -f $(etc)/DOC
--	$(AM_V_at)$(libsrc)/make-docfile -d $(srcdir) \
-+	$(AM_V_at)$(libsrc_run)/make-docfile -d $(srcdir) \
- 	  $(SOME_MACHINE_OBJECTS) $(doc_obj) > $(etc)/DOC
+ .PHONY: all ${SUBDIR} blessmail epaths-force epaths-force-w32 epaths-force-ns-self-contained etc-emacsver
  
- $(libsrc)/make-docfile$(EXEEXT) $(libsrc)/make-fingerprint$(EXEEXT): \
-@@ -627,7 +636,7 @@
- am__v_GLOBALS_1 =
- 
- gl-stamp: $(libsrc)/make-docfile$(EXEEXT) $(GLOBAL_SOURCES)
--	$(AM_V_GLOBALS)$(libsrc)/make-docfile -d $(srcdir) -g $(doc_obj) > globals.tmp
-+	$(AM_V_GLOBALS)$(libsrc_run)/make-docfile -d $(srcdir) -g $(doc_obj) > globals.tmp
- 	$(AM_V_at)$(top_srcdir)/build-aux/move-if-change globals.tmp globals.h
- 	$(AM_V_at)echo timestamp > $@
- 
-@@ -641,7 +650,7 @@
- 	$(MAKE) -C $(dir $@) all
- 
- ifeq ($(HAVE_PDUMPER),yes)
--MAKE_PDUMPER_FINGERPRINT = $(libsrc)/make-fingerprint$(EXEEXT)
-+MAKE_PDUMPER_FINGERPRINT = $(libsrc_run)/make-fingerprint$(EXEEXT)
- else
- MAKE_PDUMPER_FINGERPRINT =
- endif
