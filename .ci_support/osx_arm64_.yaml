@@ -3,7 +3,7 @@ MACOSX_DEPLOYMENT_TARGET:
 c_compiler:
 - clang
 c_compiler_version:
-- '15'
+- '16'
 channel_sources:
 - conda-forge
 channel_targets:
@@ -19,15 +19,15 @@ gmp:
 gnutls:
 - '3.7'
 libjpeg_turbo:
-- 2.1.5
+- '3'
 libpng:
 - '1.6'
 librsvg:
 - '2'
 libtiff:
-- '4.5'
+- '4.6'
 libxml2:
-- '2.11'
+- '2'
 macos_machine:
 - arm64-apple-darwin20.0.0
 ncurses:
