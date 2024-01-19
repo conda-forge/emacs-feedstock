@@ -1,0 +1,19 @@
+diff --git a/lisp/Makefile.in b/lisp/Makefile.in
+index 0a534a278f7..f327772be30 100644
+--- a/lisp/Makefile.in
++++ b/lisp/Makefile.in
+@@ -53,7 +53,13 @@ FIND_DELETE =
+ # We never change directory before running Emacs, so a relative file
+ # name is fine, and makes life easier.  If we need to change
+ # directory, we can use emacs --chdir.
+-EMACS = ../src/emacs${EXEEXT}
++
++cross_compiling = @cross_compiling@
++ifeq ($(cross_compiling),yes)
++  EMACS = ../native-build/src/emacs${EXEEXT}
++else
++  EMACS = ../src/emacs${EXEEXT}
++endif
+ 
+ # Command line flags for Emacs.
+ 
