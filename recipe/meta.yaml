@@ -49,6 +49,8 @@ requirements:
     - glib  # [build_platform != target_platform]
     - zlib  # [build_platform != target_platform]
     - libtree-sitter
+    - jansson
+
   host:
     - libxml2
     - ncurses
