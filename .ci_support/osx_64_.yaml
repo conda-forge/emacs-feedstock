@@ -29,7 +29,7 @@ librsvg:
 libtiff:
 - '4.6'
 libxml2:
-- '2.11'
+- '2'
 macos_machine:
 - x86_64-apple-darwin13.4.0
 ncurses:
