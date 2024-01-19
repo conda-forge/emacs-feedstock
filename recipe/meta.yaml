@@ -20,7 +20,7 @@ source:
     - 0007-macos-cross-compile-lisp-makefile.patch  # [osx and build_platform != target_platform]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
