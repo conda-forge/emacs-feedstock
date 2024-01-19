@@ -1,6 +1,6 @@
 # Note: This recipe currently only works on OS X and Linux.
 
-{% set version = "29.1" %}
+{% set version = "29.2" %}
 
 package:
   name: emacs
@@ -9,7 +9,7 @@ package:
 source:
   fn: emacs-{{ version }}.tar.xz
   url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
-  sha256: d2f881a5cc231e2f5a03e86f4584b0438f83edd7598a09d24a21bd8d003e2e01
+  sha256: 7d3d2448988720bf4bf57ad77a5a08bf22df26160f90507a841ba986be2670dc
   patches:
     - 0001-disable-sanity-check.patch  # [osx and build_platform != target_platform]
     - 0002-apple-silicon-resign-binary.patch  # [osx]

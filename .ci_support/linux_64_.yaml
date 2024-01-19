@@ -33,7 +33,7 @@ librsvg:
 libtiff:
 - '4.6'
 libxml2:
-- '2.11'
+- '2'
 ncurses:
 - '6'
 target_platform:
