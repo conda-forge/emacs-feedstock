@@ -4,14 +4,14 @@ set -x
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
 
 if [ "$(uname)" == "Darwin" ]; then
-    OPTS="--with-tree-sitter"
+    OPTS="--with-tree-sitter --with-json"
 
     # The build has a hard time finding libtinfo, which is separated from
     # libncurses. See
     # https://github.com/conda-forge/emacs-feedstock/pull/16#issuecomment-334241528
     export LDFLAGS="${LDFLAGS} -ltinfo"
 else
-    OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib --with-x-toolkit=gtk3 --with-harfbuzz -with-cairo --with-tree-sitter"
+    OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib --with-x-toolkit=gtk3 --with-harfbuzz -with-cairo --with-tree-sitter --with-json"
 fi
 
 autoreconf -vfi

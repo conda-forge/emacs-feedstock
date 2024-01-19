@@ -49,6 +49,8 @@ requirements:
     - glib  # [build_platform != target_platform]
     - zlib  # [build_platform != target_platform]
     - libtree-sitter
+    - jansson
+
   host:
     - libxml2
     - ncurses
@@ -79,6 +81,7 @@ requirements:
     - xorg-libxtst  # [linux]
     - zlib
     - libtree-sitter
+    - jansson
 
   run:
     - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
@@ -110,6 +113,7 @@ requirements:
     - xorg-libxtst  # [linux]
     - zlib
     - libtree-sitter
+    - jansson
 
 test:
   commands:
@@ -122,6 +126,8 @@ test:
     - $PREFIX/bin/emacs -Q --kill --batch
     # Make sure treesit works
     - $PREFIX/bin/emacs --batch --eval '(unless (treesit-available-p) (kill-emacs 1))'
+    # Make sure json works
+    - $PREFIX/bin/emacs --batch --eval '(unless (json-available-p) (kill-emacs 1))'
 
 about:
   home: http://www.gnu.org/software/emacs/
