@@ -1,6 +1,6 @@
 # Note: This recipe currently only works on OS X and Linux.
 
-{% set version = "29.2" %}
+{% set version = "29.3" %}
 
 package:
   name: emacs
@@ -9,7 +9,7 @@ package:
 source:
   fn: emacs-{{ version }}.tar.xz
   url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
-  sha256: 7d3d2448988720bf4bf57ad77a5a08bf22df26160f90507a841ba986be2670dc
+  sha256: c34c05d3ace666ed9c7f7a0faf070fea3217ff1910d004499bd5453233d742a0
   patches:
     - 0001-disable-sanity-check.patch  # [osx and build_platform != target_platform]
     - 0002-apple-silicon-resign-binary.patch  # [osx]
@@ -20,7 +20,7 @@ source:
     - 0007-macos-cross-compile-lisp-makefile.patch  # [osx and build_platform != target_platform]
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
