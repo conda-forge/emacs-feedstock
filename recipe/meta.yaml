@@ -1,6 +1,6 @@
 # Note: This recipe currently only works on OS X and Linux.
 
-{% set version = "29.3" %}
+{% set version = "29.4" %}
 
 package:
   name: emacs
@@ -9,7 +9,7 @@ package:
 source:
   fn: emacs-{{ version }}.tar.xz
   url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
-  sha256: c34c05d3ace666ed9c7f7a0faf070fea3217ff1910d004499bd5453233d742a0
+  sha256: ba897946f94c36600a7e7bb3501d27aa4112d791bfe1445c61ed28550daca235
   patches:
     - 0001-disable-sanity-check.patch  # [osx and build_platform != target_platform]
     - 0002-apple-silicon-resign-binary.patch  # [osx]
@@ -29,7 +29,7 @@ requirements:
     - pkg-config
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
-    - sysroot_linux-64 2.17  # [linux64]
+    - {{ stdlib("c") }}
     - autoconf  # [unix]
     - automake  # [unix]
     - m4  # [unix]
@@ -84,7 +84,6 @@ requirements:
     - jansson
 
   run:
-    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
     - libxml2
     - ncurses
     - dbus  # [osx]
