@@ -2,6 +2,10 @@ c_compiler:
 - gcc
 c_compiler_version:
 - '12'
+c_stdlib:
+- sysroot
+c_stdlib_version:
+- '2.17'
 cairo:
 - '1'
 cdt_name:
@@ -23,7 +27,7 @@ gmp:
 gnutls:
 - '3.7'
 harfbuzz:
-- '8'
+- '9'
 libjpeg_turbo:
 - '3'
 libpng:
@@ -38,5 +42,8 @@ ncurses:
 - '6'
 target_platform:
 - linux-64
+zip_keys:
+- - c_stdlib_version
+  - cdt_name
 zlib:
-- '1.2'
+- '1'
