@@ -20,7 +20,7 @@ source:
     - 0007-macos-cross-compile-lisp-makefile.patch  # [osx and build_platform != target_platform]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   detect_binary_files_with_prefix: true
 
@@ -29,7 +29,7 @@ requirements:
     - pkg-config
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
-    - sysroot_linux-64 2.17  # [linux64]
+    - {{ stdlib("c") }}
     - autoconf  # [unix]
     - automake  # [unix]
     - m4  # [unix]
@@ -84,7 +84,6 @@ requirements:
     - jansson
 
   run:
-    - __osx >={{ MACOSX_DEPLOYMENT_TARGET|default("10.9") }}  # [osx and x86_64]
     - libxml2
     - ncurses
     - dbus  # [osx]
