@@ -34,6 +34,7 @@ requirements:
     - automake  # [unix]
     - m4  # [unix]
     - make  # [unix]
+    - texinfo  # [unix]
     - gtk3  # [build_platform != target_platform]
     - harfbuzz  # [build_platform != target_platform]
     - libxml2  # [build_platform != target_platform]
