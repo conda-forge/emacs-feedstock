@@ -50,6 +50,7 @@ requirements:
     - zlib  # [build_platform != target_platform]
     - libtree-sitter
     - jansson
+    - gcc  # [linux]
 
   host:
     - libxml2
@@ -82,6 +83,7 @@ requirements:
     - zlib
     - libtree-sitter
     - jansson
+    - gcc  # [linux]
 
   run:
     - libxml2
@@ -113,6 +115,7 @@ requirements:
     - zlib
     - libtree-sitter
     - jansson
+    - gcc  # [linux]
 
 test:
   commands:
@@ -127,6 +130,8 @@ test:
     - $PREFIX/bin/emacs --batch --eval '(unless (treesit-available-p) (kill-emacs 1))'
     # Make sure json works
     - $PREFIX/bin/emacs --batch --eval '(unless (json-available-p) (kill-emacs 1))'
+    # Make sure native compilation works
+    - $PREFIX/bin/emacs --batch --eval '(unless (native-comp-available-p) (kill-emacs 1))'  # [linux]
 
 about:
   home: http://www.gnu.org/software/emacs/
