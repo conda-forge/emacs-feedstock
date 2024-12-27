@@ -13,6 +13,19 @@ if [ "$(uname)" == "Darwin" ]; then
     # https://github.com/conda-forge/emacs-feedstock/pull/16#issuecomment-334241528
     export LDFLAGS="${LDFLAGS} -ltinfo"
 else
+    OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib --with-x-toolkit=gtk3 --with-harfbuzz -with-cairo --with-tree-sitter --with-json"
+fi
+
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" != 1 ]]; then
+    if [ "$(uname)" == "Darwin" ]; then
+        # -mmacosx-version-min= causes link failure
+        CPPFLAGS=$(echo "${CPPFLAGS}" | sed -E "s/-mmacosx-version-min=[^ ]+//g")
+        echo > gcc/libgcc/config/t-darwin-min-5
+
+        # avoids poisoned symbol usage
+        CXXFLAGS="${CXXFLAGS} -D_LIBCPP_REMOVE_TRANSITIVE_INCLUDES=1"
+    fi
+
     # Build libgccjit for the native compilation
     mkdir gcc-jit
     pushd gcc-jit
@@ -56,8 +69,6 @@ s@--sysroot=%R@--sysroot=${PREFIX}/${HOST}/sysroot@g
 " > ${SPECSFILE}.new
     mv ${SPECSFILE}.new ${SPECSFILE}
     popd
-
-    OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib --with-x-toolkit=gtk3 --with-harfbuzz -with-cairo --with-tree-sitter --with-json"
 fi
 
 autoreconf -vfi
@@ -89,9 +100,7 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   export gl_cv_func_open_slash=no
   export fu_cv_sys_stat_statfs2_bsize=yes
   OPTS="$OPTS --with-pdumper=yes --with-unexec=no --with-dumping=none"
-fi
-
-if [ "$(uname)" != "Darwin" ]; then
+else
     CFLAGS="$CFLAGS -I$PREFIX/lib/emacs/jit/include"
     LDFLAGS="$LDFLAGS -L$PREFIX/lib/emacs/jit/lib -Wl,-rpath,$PREFIX/lib/emacs/jit/lib"
     OPTS="$OPTS --with-native-compilation=yes"

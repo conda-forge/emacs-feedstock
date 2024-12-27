@@ -21,13 +21,15 @@ source:
       - 0005-macos-cross-compile-nextstep-makefile.patch  # [osx and build_platform != target_platform]
       - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
       - 0007-macos-cross-compile-lisp-makefile.patch  # [osx and build_platform != target_platform]
-  - fn: gcc-{{ gcc_version }}.tar.xz  # [linux]
-    url: https://ftp.gnu.org/gnu/gcc/gcc-{{ gcc_version }}/gcc-{{ gcc_version }}.tar.xz  # [linux]
-    sha256: a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9  # [linux]
-    folder: gcc  # [linux]
+  - fn: gcc-{{ gcc_version }}.tar.xz
+    url: https://ftp.gnu.org/gnu/gcc/gcc-{{ gcc_version }}/gcc-{{ gcc_version }}.tar.xz
+    sha256: a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9
+    folder: gcc
+    patches:
+      - 0008-macos-strip-x.patch  # [osx]
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win]
   ignore_prefix_files:
     - lib/emacs/jit/bin/*
@@ -38,8 +40,9 @@ requirements:
     - pkg-config
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
-    - {{ compiler('cxx') }}  # [linux]
+    - {{ compiler('cxx') }}  # [build_platform == target_platform]
     - {{ stdlib("c") }}
+    - libcxx-devel  # [osx]
     - autoconf  # [unix]
     - automake  # [unix]
     - m4  # [unix]
@@ -64,8 +67,8 @@ requirements:
     - texinfo
 
   host:
-    - {{ stdlib("c") }}  # [linux]
-    - binutils  # [linux]
+    - {{ stdlib("c") }}  # [build_platform == target_platform]
+    - binutils  # [build_platform == target_platform]
     - libxml2
     - ncurses
     - dbus  # [osx]
@@ -77,8 +80,8 @@ requirements:
     - giflib
     - gnutls
     - gmp
-    - mpc  # [linux]
-    - mpfr  # [linux]
+    - mpc  # [build_platform == target_platform]
+    - mpfr  # [build_platform == target_platform]
     - glib
     - freetype  # [linux]
     - cairo  # [linux]
@@ -101,7 +104,7 @@ requirements:
     - jansson
 
   run:
-    - binutils  # [linux]
+    - binutils  # [build_platform == target_platform]
     - libxml2
     - ncurses
     - dbus  # [osx]
@@ -145,7 +148,7 @@ test:
     - $PREFIX/bin/emacs --batch --eval '(unless (treesit-available-p) (kill-emacs 1))'
     # Make sure json works
     - $PREFIX/bin/emacs --batch --eval '(unless (json-available-p) (kill-emacs 1))'
-    - $PREFIX/bin/emacs --batch --eval '(batch-native-compile t)' $PREFIX/share/emacs/{{ version }}/lisp/calculator.elc  # [linux]
+    - $PREFIX/bin/emacs --batch --eval '(batch-native-compile t)' $PREFIX/share/emacs/{{ version }}/lisp/calculator.elc
 
 about:
   home: http://www.gnu.org/software/emacs/
