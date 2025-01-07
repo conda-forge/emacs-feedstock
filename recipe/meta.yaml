@@ -2,33 +2,43 @@
 
 {% set version = "29.3" %}
 
+# Version of GCC sources used to build the embedded JIT compiler
+{% set gcc_version = "14.2.0" %}
+
 package:
   name: emacs
   version: {{ version }}
 
 source:
-  fn: emacs-{{ version }}.tar.xz
-  url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
-  sha256: c34c05d3ace666ed9c7f7a0faf070fea3217ff1910d004499bd5453233d742a0
-  patches:
-    - 0001-disable-sanity-check.patch  # [osx and build_platform != target_platform]
-    - 0002-apple-silicon-resign-binary.patch  # [osx]
-    - 0003-macos-cross-compile-configure.patch  # [osx and build_platform != target_platform]
-    - 0004-macos-cross-compile-makefile.patch  # [osx and build_platform != target_platform]
-    - 0005-macos-cross-compile-nextstep-makefile.patch  # [osx and build_platform != target_platform]
-    - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
-    - 0007-macos-cross-compile-lisp-makefile.patch  # [osx and build_platform != target_platform]
+  - fn: emacs-{{ version }}.tar.xz
+    url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
+    sha256: c34c05d3ace666ed9c7f7a0faf070fea3217ff1910d004499bd5453233d742a0
+    patches:
+      - 0001-disable-sanity-check.patch  # [osx and build_platform != target_platform]
+      - 0002-apple-silicon-resign-binary.patch  # [osx]
+      - 0003-macos-cross-compile-configure.patch  # [osx and build_platform != target_platform]
+      - 0004-macos-cross-compile-makefile.patch  # [osx and build_platform != target_platform]
+      - 0005-macos-cross-compile-nextstep-makefile.patch  # [osx and build_platform != target_platform]
+      - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
+      - 0007-macos-cross-compile-lisp-makefile.patch  # [osx and build_platform != target_platform]
+  - fn: gcc-{{ gcc_version }}.tar.xz  # [linux]
+    url: https://ftp.gnu.org/gnu/gcc/gcc-{{ gcc_version }}/gcc-{{ gcc_version }}.tar.xz  # [linux]
+    sha256: a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9  # [linux]
+    folder: gcc  # [linux]
 
 build:
-  number: 1
+  number: 2
   skip: true  # [win]
-  detect_binary_files_with_prefix: true
+  ignore_prefix_files:
+    - lib/emacs/jit/bin/*
+    - lib/emacs/jit/lib/*
 
 requirements:
   build:
     - pkg-config
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
+    - {{ compiler('cxx') }}  # [linux]
     - {{ stdlib("c") }}
     - autoconf  # [unix]
     - automake  # [unix]
@@ -48,20 +58,27 @@ requirements:
     - gmp  # [build_platform != target_platform]
     - glib  # [build_platform != target_platform]
     - zlib  # [build_platform != target_platform]
+    - liblzma-devel
     - libtree-sitter
     - jansson
+    - texinfo
 
   host:
+    - {{ stdlib("c") }}  # [linux]
+    - binutils  # [linux]
     - libxml2
     - ncurses
     - dbus  # [osx]
     - libjpeg-turbo
     - libpng
     - libtiff
+    - liblzma-devel
     - librsvg
     - giflib
     - gnutls
     - gmp
+    - mpc  # [linux]
+    - mpfr  # [linux]
     - glib
     - freetype  # [linux]
     - cairo  # [linux]
@@ -77,13 +94,14 @@ requirements:
     - xorg-libxcomposite  # [linux]
     - xorg-libxdamage  # [linux]
     - xorg-libxinerama  # [linux]
-    - xorg-xineramaproto  # [linux]
+    - xorg-xorgproto  # [linux]
     - xorg-libxtst  # [linux]
     - zlib
     - libtree-sitter
     - jansson
 
   run:
+    - binutils  # [linux]
     - libxml2
     - ncurses
     - dbus  # [osx]
@@ -108,7 +126,7 @@ requirements:
     - xorg-libxcomposite  # [linux]
     - xorg-libxdamage  # [linux]
     - xorg-libxinerama  # [linux]
-    - xorg-xineramaproto  # [linux]
+    - xorg-xorgproto  # [linux]
     - xorg-libxtst  # [linux]
     - zlib
     - libtree-sitter
@@ -127,6 +145,7 @@ test:
     - $PREFIX/bin/emacs --batch --eval '(unless (treesit-available-p) (kill-emacs 1))'
     # Make sure json works
     - $PREFIX/bin/emacs --batch --eval '(unless (json-available-p) (kill-emacs 1))'
+    - $PREFIX/bin/emacs --batch --eval '(batch-native-compile t)' $PREFIX/share/emacs/{{ version }}/lisp/calculator.elc  # [linux]
 
 about:
   home: http://www.gnu.org/software/emacs/
@@ -137,5 +156,6 @@ about:
 extra:
   recipe-maintainers:
     - asmeurer
+    - jmakovicka
     - msarahan
     - notestaff
