@@ -27,7 +27,7 @@ source:
     folder: gcc  # [linux]
 
 build:
-  number: 2
+  number: 3
   skip: true  # [win]
   ignore_prefix_files:
     - lib/emacs/jit/bin/*

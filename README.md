@@ -177,6 +177,7 @@ Feedstock Maintainers
 =====================
 
 * [@asmeurer](https://github.com/asmeurer/)
+* [@jmakovicka](https://github.com/jmakovicka/)
 * [@msarahan](https://github.com/msarahan/)
 * [@notestaff](https://github.com/notestaff/)
 
