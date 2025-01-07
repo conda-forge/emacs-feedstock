@@ -5,7 +5,7 @@ MACOSX_SDK_VERSION:
 c_compiler:
 - clang
 c_compiler_version:
-- '17'
+- '18'
 c_stdlib:
 - macosx_deployment_target
 c_stdlib_version:
@@ -26,12 +26,14 @@ gnutls:
 - '3.8'
 libjpeg_turbo:
 - '3'
+liblzma_devel:
+- '5'
 libpng:
 - '1.6'
 librsvg:
 - '2'
 libtiff:
-- '4.6'
+- '4.7'
 libxml2:
 - '2'
 macos_machine:
