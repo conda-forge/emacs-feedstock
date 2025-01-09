@@ -1,4 +1,5 @@
 # Note: This recipe currently only works on OS X and Linux.
+# Trying to add Windows
 
 {% set version = "29.3" %}
 
@@ -18,27 +19,40 @@ source:
     - 0005-macos-cross-compile-nextstep-makefile.patch  # [osx and build_platform != target_platform]
     - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
     - 0007-macos-cross-compile-lisp-makefile.patch  # [osx and build_platform != target_platform]
+    - mingw-w64-emacs/001-ucrt.patch # [win]
+    - mingw-w64-emacs/002-clang-fixes.patch # [win]
+    - mingw-w64-emacs/003-aarch64-fixes.patch # [win]
+    - mingw-w64-emacs/004-libtree-sitter.patch # [win]
 
 build:
   number: 1
-  skip: true  # [win]
+  skip: true  # [False]
   detect_binary_files_with_prefix: true
 
 requirements:
   build:
-    - pkg-config
-    - gnuconfig  # [unix]
-    - {{ compiler('c') }}
-    - {{ stdlib("c") }}
+    - pkg-config # [not win]
+    - m2-pkg-config # [win]
+    - gnuconfig  # [unix or win]
+    - {{ compiler('c') }} # [not win]
+    - {{ stdlib("c") }} # [not win]
+    - {{ compiler('m2w64_c') }} # [win]
+    - {{ stdlib("m2w64_c") }} # [win]
+    - m2-base # [win]
     - autoconf  # [unix]
+    - m2-autoconf # [win]
     - automake  # [unix]
+    - m2-automake-wrapper # [win]
     - m4  # [unix]
+    - m2-m4 # [win]
     - make  # [unix]
-    - gtk3  # [build_platform != target_platform]
+    - m2-make  # [win]
+    - m2-texinfo # [win]
+    - gtk3  # [build_platform != target_platform and not win]
     - harfbuzz  # [build_platform != target_platform]
     - libxml2  # [build_platform != target_platform]
     - ncurses  # [build_platform != target_platform]
-    - dbus  # [build_platform != target_platform]
+    - dbus  # [build_platform != target_platform and not win]
     - libjpeg-turbo   # [build_platform != target_platform]
     - libpng  # [build_platform != target_platform]
     - libtiff  # [build_platform != target_platform]
@@ -50,6 +64,7 @@ requirements:
     - zlib  # [build_platform != target_platform]
     - libtree-sitter
     - jansson
+    - ctags
 
   host:
     - libxml2
@@ -60,25 +75,25 @@ requirements:
     - libtiff
     - librsvg
     - giflib
-    - gnutls
+    - gnutls # [not win]
     - gmp
     - glib
-    - freetype  # [linux]
-    - cairo  # [linux]
+    - freetype  # [linux or win]
+    - cairo  # [linux or win]
     - gtk3  # [linux]
-    - harfbuzz  # [linux]
-    - xorg-libxaw  # [linux]
-    - xorg-libxpm  # [linux]
-    - xorg-libxfixes  # [linux]
+    - harfbuzz  # [linux or win]
+    - xorg-libxaw  # [linux or win]
+    - xorg-libxpm  # [linux or win]
+    - xorg-libxfixes  # [linux or win]
     - xorg-libxft  # [linux]
-    - xorg-libxi  # [linux]
-    - xorg-libxrandr  # [linux]
-    - xorg-libxcursor  # [linux]
-    - xorg-libxcomposite  # [linux]
-    - xorg-libxdamage  # [linux]
-    - xorg-libxinerama  # [linux]
-    - xorg-xineramaproto  # [linux]
-    - xorg-libxtst  # [linux]
+    - xorg-libxi  # [linux or win]
+    - xorg-libxrandr  # [linux or win]
+    - xorg-libxcursor  # [linux or win]
+    - xorg-libxcomposite  # [linux or win]
+    - xorg-libxdamage  # [linux or win]
+    - xorg-libxinerama  # [linux or win]
+    - xorg-xineramaproto  # [linux or win]
+    - xorg-libxtst  # [linux or win]
     - zlib
     - libtree-sitter
     - jansson
@@ -91,28 +106,31 @@ requirements:
     - libpng
     - libtiff
     - giflib
-    - gnutls
+    - gnutls # [not win]
     - gmp
     - glib
-    - freetype  # [linux]
-    - cairo  # [linux]
+    - freetype  # [linux or win]
+    - cairo  # [linux or win]
     - gtk3  # [linux]
-    - harfbuzz  # [linux]
-    - xorg-libxaw  # [linux]
-    - xorg-libxpm  # [linux]
-    - xorg-libxfixes  # [linux]
+    - harfbuzz  # [linux or win]
+    - xorg-libxaw  # [linux or win]
+    - xorg-libxpm  # [linux or win]
+    - xorg-libxfixes  # [linux or win]
     - xorg-libxft  # [linux]
-    - xorg-libxi  # [linux]
-    - xorg-libxrandr  # [linux]
-    - xorg-libxcursor  # [linux]
-    - xorg-libxcomposite  # [linux]
-    - xorg-libxdamage  # [linux]
-    - xorg-libxinerama  # [linux]
-    - xorg-xineramaproto  # [linux]
-    - xorg-libxtst  # [linux]
+    - xorg-libxi  # [linux or win]
+    - xorg-libxrandr  # [linux or win]
+    - xorg-libxcursor  # [linux or win]
+    - xorg-libxcomposite  # [linux or win]
+    - xorg-libxdamage  # [linux or win]
+    - xorg-libxinerama  # [linux or win]
+    - xorg-xineramaproto  # [linux or win]
+    - xorg-libxtst  # [linux or win]
     - zlib
     - libtree-sitter
     - jansson
+    - ctags # [win]
+    - m2-texinfo # [win]
+    
 
 test:
   commands:

@@ -11,4 +11,5 @@ os_version:
 provider:
   linux: azure
   osx: azure
+  win: azure
 test: native_and_emulated

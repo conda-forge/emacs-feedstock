@@ -3,16 +3,46 @@ set -x
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
 
-if [ "$(uname)" == "Darwin" ]; then
-    OPTS="--with-tree-sitter --with-json"
+case "$(uname)" in
+    Darwin)
+	OPTS="--with-tree-sitter --with-json"
 
-    # The build has a hard time finding libtinfo, which is separated from
-    # libncurses. See
-    # https://github.com/conda-forge/emacs-feedstock/pull/16#issuecomment-334241528
-    export LDFLAGS="${LDFLAGS} -ltinfo"
-else
-    OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib --with-x-toolkit=gtk3 --with-harfbuzz -with-cairo --with-tree-sitter --with-json"
-fi
+	# The build has a hard time finding libtinfo, which is separated from
+	# libncurses. See
+	# https://github.com/conda-forge/emacs-feedstock/pull/16#issuecomment-334241528
+	export LDFLAGS="${LDFLAGS} -ltinfo"
+	;;
+    *MSYS*)
+	# Pulled from MSYS2 PKGBUILD
+	local CYGWIN_CHOST="${CHOST/-msys/-cygwin}"
+
+	CPPFLAGS="-DNDEBUG"
+	CFLAGS="-pipe -O3 -fomit-frame-pointer -funroll-loops"
+	LDFLAGS="-s -Wl,-s"
+	OPTS="--prefix=/usr --build='${CYGWIN_CHOST}' --with-x-toolkit=no"
+	OPTS+=" --with-sound=yes --with-modules --without-compress-install"
+	;;
+    *MINGW*)
+	# Pulled from MINGW PKGBUILD
+	# Required for nanosleep with clang
+	LDFLAGS="${LDFLAGS} -lpthread"
+	# -D_FORTIFY_SOURCE breaks build
+	CFLAGS=${CFLAGS//"-Wp,-D_FORTIFY_SOURCE=2"}
+	# -foptimize-sibling-calls breaks native compilation (GCC 13.1)
+	# TODO, fixed upstream now: https://git.savannah.gnu.org/cgit/emacs.git/commit/?id=19c983ddedf083f82008472c13dfd08ec94b615f
+	CFLAGS+=" -fno-optimize-sibling-calls"
+	# configure script can not deal with the warnings that were turned
+	# into errors in GCC 14
+	# TODO, fixed upstream now: https://git.savannah.gnu.org/cgit/emacs.git/commit/?id=5216903ae6c3f91ebefb1152af40753f723cbc39
+	CFLAGS+=" -Wno-error=implicit-function-declaration"
+
+	OPTS="--prefix='${MINGW_PREFIX}' --host='${MINGW_CHOST}' --build='${MINGW_CHOST}'"
+	OPTS+=" --with-modules  --without-dbus --without-compress-install --with-tree-sitter --with-json"
+	;;
+    *)
+	OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib --with-x-toolkit=gtk3 --with-harfbuzz -with-cairo --with-tree-sitter --with-json"
+	;;
+esac
 
 autoreconf -vfi
 
