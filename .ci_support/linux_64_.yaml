@@ -9,13 +9,13 @@ c_stdlib_version:
 cairo:
 - '1'
 cdt_name:
-- cos7
+- conda
 channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
 docker_image:
-- quay.io/condaforge/linux-anvil-cos7-x86_64
+- quay.io/condaforge/linux-anvil-x86_64:cos7
 freetype:
 - '2'
 giflib:
@@ -35,15 +35,12 @@ libpng:
 librsvg:
 - '2'
 libtiff:
-- '4.6'
+- '4.7'
 libxml2:
 - '2'
 ncurses:
 - '6'
 target_platform:
 - linux-64
-zip_keys:
-- - c_stdlib_version
-  - cdt_name
 zlib:
 - '1'
