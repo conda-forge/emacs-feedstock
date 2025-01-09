@@ -1,0 +1,47 @@
+From fea646d563254bb2b4082501fc765c11645fec85 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Jind=C5=99ich=20Makovi=C4=8Dka?= <makovick@gmail.com>
+Date: Thu, 9 Jan 2025 20:59:11 +0100
+Subject: [PATCH] do not dump configure-info-directory
+
+Patching dumped configure-info-directory during conda install will not
+update the dumped string length. This results in a string with trailing
+padding zeros.
+
+epaths_path_info with global linkage prevents compile time strlen().
+---
+ src/callproc.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/src/callproc.c b/src/callproc.c
+index a3d34d55d53..a64cb4fd4d3 100644
+--- a/src/callproc.c
++++ b/src/callproc.c
+@@ -1946,6 +1946,8 @@ make_environment_block (Lisp_Object current_dir)
+ 
+ /* This is run before init_cmdargs.  */
+ 
++const char* epaths_path_info = PATH_INFO;
++
+ void
+ init_callproc_1 (void)
+ {
+@@ -1961,6 +1963,8 @@ init_callproc_1 (void)
+   Vexec_directory = Ffile_name_as_directory (Fcar (Vexec_path));
+   /* FIXME?  For ns, path_exec should go at the front?  */
+   Vexec_path = nconc2 (decode_env_path ("PATH", "", 0), Vexec_path);
++
++  Vconfigure_info_directory = build_string (epaths_path_info);
+ }
+ 
+ /* This is run after init_cmdargs, when Vinstallation_directory is valid.  */
+@@ -2131,7 +2135,6 @@ syms_of_callproc (void)
+ This is the name of the directory in which the build procedure installed
+ Emacs's info files; the default value for `Info-default-directory-list'
+ includes this.  */);
+-  Vconfigure_info_directory = build_string (PATH_INFO);
+ 
+   DEFVAR_LISP ("shared-game-score-directory", Vshared_game_score_directory,
+ 	       doc: /* Directory of score files for games which come with GNU Emacs.
+-- 
+2.47.1
+
