@@ -1,0 +1,40 @@
+cairo:
+- '1'
+channel_sources:
+- conda-forge
+channel_targets:
+- conda-forge main
+freetype:
+- '2'
+giflib:
+- '5.2'
+glib:
+- '2'
+gmp:
+- '6'
+harfbuzz:
+- '9'
+libjpeg_turbo:
+- '3'
+libpng:
+- '1.6'
+librsvg:
+- '2'
+libtiff:
+- '4.7'
+libxml2:
+- '2'
+m2w64_c_compiler:
+- gcc
+m2w64_c_compiler_version:
+- '14'
+m2w64_c_stdlib:
+- m2w64-sysroot
+m2w64_c_stdlib_version:
+- '12'
+ncurses:
+- '6'
+target_platform:
+- win-64
+zlib:
+- '1'
