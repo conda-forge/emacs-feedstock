@@ -5,7 +5,7 @@ source "${RECIPE_DIR}"/get_cpu_arch.sh
 # Get an updated config.sub and config.guess
 cp "${BUILD_PREFIX}"/share/gnuconfig/config.* ./build-aux
 
-if [[ "$(uname)" == "Darwin" ]]; then
+if [ "$(uname)" == "Darwin" ]; then
     OPTS="--with-tree-sitter --with-json"
 
     # The build has a hard time finding libtinfo, which is separated from
@@ -81,13 +81,13 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION}" == 1 ]]; then
     mkdir -p native-build
     pushd native-build || exit
 
-    export CC=${CC_FOR_BUILD}
-    export AR=(${CC_FOR_BUILD} -print-prog-name=ar)
-    export NM=(${CC_FOR_BUILD} -print-prog-name=nm)
-    export LDFLAGS=${LDFLAGS//${PREFIX}/${BUILD_PREFIX}}
-    export PKG_CONFIG_PATH=${BUILD_PREFIX}/lib/pkgconfig
+    export CC="${CC_FOR_BUILD}"
+    export AR=("${CC_FOR_BUILD}" -print-prog-name=ar)
+    export NM=("${CC_FOR_BUILD}" -print-prog-name=nm)
+    export LDFLAGS="${LDFLAGS//${PREFIX}/${BUILD_PREFIX}}"
+    export PKG_CONFIG_PATH="${BUILD_PREFIX}"/lib/pkgconfig
     export ac_cv_func_aligned_alloc=no
-    export host_alias=${build_alias}
+    export host_alias="${build_alias}"
 
     bash ../configure --with-modules --prefix="${BUILD_PREFIX}" "${OPTS}"
     make -j"${CPU_COUNT}" V=1
@@ -105,7 +105,7 @@ if [[ "${CONDA_BUILD_CROSS_COMPILATION}" == 1 ]]; then
   OPTS="${OPTS} --with-pdumper=yes --with-unexec=no --with-dumping=none"
 fi
 
-if [[ "$(uname)" != "Darwin" ]]; then
+if [ "$(uname)" != "Darwin" ]; then
     CFLAGS="${CFLAGS} -I${PREFIX}/lib/emacs/jit/include"
     LDFLAGS="${LDFLAGS} -L${PREFIX}/lib/emacs/jit/lib -Wl,-rpath,${PREFIX}/lib/emacs/jit/lib"
     OPTS="${OPTS} --with-native-compilation=yes"
@@ -118,7 +118,7 @@ make -j"${CPU_COUNT}" V=1
 # make check
 make install
 
-if [[ "$(uname)" == "Darwin" ]]; then
+if [ "$(uname)" == "Darwin" ]; then
     mv nextstep/Emacs.app "${PREFIX}"/Emacs.app
     mkdir -p "${PREFIX}"/bin
     cat <<EOF > "${PREFIX}"/bin/emacs-"${PKG_VERSION}"

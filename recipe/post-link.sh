@@ -2,10 +2,10 @@
 
 set -e
 
-if [[ "$(uname)" == "Darwin" ]]; then
+if [ "$(uname)" == "Darwin" ]; then
    pdump_file="${PREFIX}/Emacs.app/Contents/MacOS/libexec/Emacs.pdmp"
 
-   if [[ ! -s "${pdump_file}" ]]; then
+   if [ ! -s "${pdump_file}" ]; then
       # Empty pdump file, we need to generate it now.
       cd "${PREFIX}"/Emacs.app/Contents/Resources/lisp
       rm -f "${pdump_file}"
