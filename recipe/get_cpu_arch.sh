@@ -12,12 +12,12 @@ get_cpu_arch() {
     echo "Unknown architecture"
     exit 1
   fi
-  echo $CPU_ARCH
+  echo "${CPU_ARCH}"
 }
 
 get_triplet() {
   if [[ "$1" == linux-* ]]; then
-    echo "$(get_cpu_arch $1)-conda-linux-gnu"
+    echo "$(get_cpu_arch "$1")-conda-linux-gnu"
   elif [[ "$1" == osx-64 ]]; then
     echo "x86_64-apple-darwin13.4.0"
   elif [[ "$1" == osx-arm64 ]]; then
@@ -30,5 +30,5 @@ get_triplet() {
   fi
 }
 
-export BUILD="$(get_triplet $build_platform)"
-export HOST="$(get_triplet $target_platform)"
+export BUILD="$(get_triplet "${build_platform}")"
+export HOST="$(get_triplet "${target_platform}")"
