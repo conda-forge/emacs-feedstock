@@ -5,14 +5,7 @@ source $RECIPE_DIR/get_cpu_arch.sh
 # Get an updated config.sub and config.guess
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
 
-if [ "$(uname)" == "Darwin" ]; then
-    OPTS="--with-tree-sitter --with-json"
-
-    # The build has a hard time finding libtinfo, which is separated from
-    # libncurses. See
-    # https://github.com/conda-forge/emacs-feedstock/pull/16#issuecomment-334241528
-    export LDFLAGS="${LDFLAGS} -ltinfo"
-else
+build_gccjit () {
     # Build libgccjit for the native compilation
     mkdir gcc-jit
     pushd gcc-jit
@@ -70,9 +63,51 @@ s@--sysroot=%R@--sysroot=${PREFIX}/${HOST}/sysroot@g
 " > ${SPECSFILE}.new
     mv ${SPECSFILE}.new ${SPECSFILE}
     popd
+}
 
-    OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib --with-x-toolkit=gtk3 --with-harfbuzz -with-cairo --with-tree-sitter --with-json"
-fi
+case "$(uname)" in
+    Darwin)
+	OPTS="--with-tree-sitter --with-json"
+
+	# The build has a hard time finding libtinfo, which is separated from
+	# libncurses. See
+	# https://github.com/conda-forge/emacs-feedstock/pull/16#issuecomment-334241528
+	export LDFLAGS="${LDFLAGS} -ltinfo"
+	;;
+    *MINGW*)
+	# Pulled from MINGW PKGBUILD
+	# Do not want to double any slashes after $PREFIX(!)
+	PREFIX=${PREFIX%/}
+	# Required for nanosleep with clang
+	export LDFLAGS="${LDFLAGS} -L$PREFIX/lib -lpthread"
+	# -D_FORTIFY_SOURCE breaks build
+	export CPPFLAGS="${INCLUDE%;}"
+	CPPFLAGS="-I${CPPFLAGS//[:;]/ -I}"
+	CPPFLAGS+=" -I$PREFIX/include"
+	export CFLAGS=${CFLAGS//"-Wp,-D_FORTIFY_SOURCE=2"}
+	# -foptimize-sibling-calls breaks native compilation (GCC 13.1)
+	# TODO, fixed upstream now: https://git.savannah.gnu.org/cgit/emacs.git/commit/?id=19c983ddedf083f82008472c13dfd08ec94b615f
+	CFLAGS+=" -fno-optimize-sibling-calls"
+	# configure script can not deal with the warnings that were turned
+	# into errors in GCC 14
+	# TODO, fixed upstream now: https://git.savannah.gnu.org/cgit/emacs.git/commit/?id=5216903ae6c3f91ebefb1152af40753f723cbc39
+	CFLAGS+=" -Wno-error=implicit-function-declaration"
+	
+	PREFIX="$PREFIX/Library/${MINGW_PREFIX#/}"
+	export OPTS=" --host=${MINGW_CHOST} --build=${MINGW_CHOST}"
+	OPTS+=" --x-includes=$PREFIX/include --x-libraries=$PREFIX/lib"
+	OPTS+=" --without-dbus --without-compress-install --with-tree-sitter --with-json"
+	OPTS+=" --with-gnutls=no"
+	# just let configure decide, except for the prefix, for now
+	OPTS=""
+	echo "PATH=$PATH"
+	;;
+    *)
+	# linux
+	build_gccjit
+	OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib --with-x-toolkit=gtk3 --with-harfbuzz -with-cairo --with-tree-sitter --with-json"
+	;;
+esac
 
 autoreconf -vfi
 
@@ -105,11 +140,16 @@ if [[ "$CONDA_BUILD_CROSS_COMPILATION" == 1 ]]; then
   OPTS="$OPTS --with-pdumper=yes --with-unexec=no --with-dumping=none"
 fi
 
-if [ "$(uname)" != "Darwin" ]; then
-    CFLAGS="$CFLAGS -I$PREFIX/lib/emacs/jit/include"
-    LDFLAGS="$LDFLAGS -L$PREFIX/lib/emacs/jit/lib -Wl,-rpath,$PREFIX/lib/emacs/jit/lib"
-    OPTS="$OPTS --with-native-compilation=yes"
-fi
+case "$(uname)" in
+    Darwin | *MINGW*)
+	# ignore
+    ;;
+    *)
+	CFLAGS="$CFLAGS -I$PREFIX/lib/emacs/jit/include"
+	LDFLAGS="$LDFLAGS -L$PREFIX/lib/emacs/jit/lib -Wl,-rpath,$PREFIX/lib/emacs/jit/lib"
+	OPTS="$OPTS --with-native-compilation=yes"
+	;;
+esac
 
 bash configure --with-modules --prefix=$PREFIX $OPTS
 

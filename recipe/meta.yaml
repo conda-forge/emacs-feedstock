@@ -14,60 +14,78 @@ source:
     url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
     sha256: ba897946f94c36600a7e7bb3501d27aa4112d791bfe1445c61ed28550daca235
     patches:
-      - 0001-disable-sanity-check.patch  # [osx and build_platform != target_platform]
+      - 0001-disable-sanity-check.patch  # [(osx and build_platform != target_platform) or win]
       - 0002-apple-silicon-resign-binary.patch  # [osx]
       - 0003-macos-cross-compile-configure.patch  # [osx and build_platform != target_platform]
       - 0004-macos-cross-compile-makefile.patch  # [osx and build_platform != target_platform]
       - 0005-macos-cross-compile-nextstep-makefile.patch  # [osx and build_platform != target_platform]
       - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
       - 0007-macos-cross-compile-lisp-makefile.patch  # [osx and build_platform != target_platform]
+      - mingw-w64-emacs/001-ucrt.patch # [win]
+      - mingw-w64-emacs/002-clang-fixes.patch # [win]
+      - mingw-w64-emacs/003-aarch64-fixes.patch # [win]
+      - mingw-w64-emacs/004-libtree-sitter.patch # [win]
+      - ignore_gnutls.patch # [win]
   - fn: gcc-{{ gcc_version }}.tar.xz  # [linux]
     url: https://ftp.gnu.org/gnu/gcc/gcc-{{ gcc_version }}/gcc-{{ gcc_version }}.tar.xz  # [linux]
     sha256: a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9  # [linux]
     folder: gcc  # [linux]
+  - path: ./build.sh # [win]
+  - path: ./win_build_env.sed # [win]
+
 
 build:
   number: 0
-  skip: true  # [win]
   ignore_prefix_files:
     - lib/emacs/jit/bin/*
     - lib/emacs/jit/lib/*
 
 requirements:
   build:
-    - pkg-config
-    - gnuconfig  # [unix]
-    - {{ compiler('c') }}
-    - {{ compiler('cxx') }}  # [linux]
-    - {{ stdlib("c") }}
+    - pkg-config # [not win]
+    - m2-pkg-config # [win]
+    - gnuconfig  # [unix or win]
+    - {{ compiler('c') }} # [not win]
+    - {{ stdlib("c") }} # [not win]
+    - {{ compiler('m2w64_c') }} # [win]
+    - {{ stdlib('m2w64_c') }} # [win]
+    - m2-base # [win]
     - autoconf  # [unix]
+    - m2-autoconf # [win]
     - automake  # [unix]
+    - m2-automake-wrapper # [win]
     - m4  # [unix]
+    - m2-m4 # [win]
     - make  # [unix]
-    - gtk3  # [build_platform != target_platform]
-    - harfbuzz  # [build_platform != target_platform]
-    - libxml2  # [build_platform != target_platform]
-    - ncurses  # [build_platform != target_platform]
-    - dbus  # [build_platform != target_platform]
-    - libjpeg-turbo   # [build_platform != target_platform]
-    - libpng  # [build_platform != target_platform]
-    - libtiff  # [build_platform != target_platform]
-    - librsvg  # [build_platform != target_platform]
-    - giflib  # [build_platform != target_platform]
-    - gnutls  # [build_platform != target_platform]
-    - gmp  # [build_platform != target_platform]
-    - glib  # [build_platform != target_platform]
-    - zlib  # [build_platform != target_platform]
+    - m2-make  # [win]
+    - m2-texinfo # [win]
+    - gtk3  # [build_platform != target_platform and not win]
+    - harfbuzz  # [build_platform != target_platform or win]
+    - libxml2  # [build_platform != target_platform or win]
+    - ncurses  # [build_platform != target_platform and not win]
+    - m2-ncurses  # [build_platform != target_platform and win]
+    - dbus  # [build_platform != target_platform and not win]
+    - libjpeg-turbo   # [build_platform != target_platform or win]
+    - libpng  # [build_platform != target_platform or win]
+    - libtiff  # [build_platform != target_platform or win]
+    - librsvg  # [build_platform != target_platform or win]
+    - giflib  # [build_platform != target_platform or win]
+    - gnutls  # [build_platform != target_platform and not win]
+    - gmp  # [build_platform != target_platform or win]
+    - glib  # [build_platform != target_platform or win]
+    - zlib  # [build_platform != target_platform or win]
     - liblzma-devel
     - libtree-sitter
     - jansson
-    - texinfo
+    - ctags
 
   host:
     - {{ stdlib("c") }}  # [linux]
     - binutils  # [linux]
     - libxml2
-    - ncurses
+    - ncurses # [not win]
+    - m2-ncurses # [win]
+    - m2-msys2-launcher # [win]
     - dbus  # [osx]
     - libjpeg-turbo
     - libpng
@@ -75,76 +93,85 @@ requirements:
     - liblzma-devel
     - librsvg
     - giflib
-    - gnutls
+    - gnutls # [not win]
     - gmp
     - mpc  # [linux]
     - mpfr  # [linux]
     - glib
-    - freetype  # [linux]
-    - cairo  # [linux]
+    - freetype  # [linux or win]
+    - cairo  # [linux or win]
     - gtk3  # [linux]
-    - harfbuzz  # [linux]
-    - xorg-libxaw  # [linux]
-    - xorg-libxpm  # [linux]
-    - xorg-libxfixes  # [linux]
+    - harfbuzz  # [linux or win]
+    - xorg-libxaw  # [linux or win]
+    - xorg-libxpm  # [linux or win]
+    - xorg-libxfixes  # [linux or win]
     - xorg-libxft  # [linux]
-    - xorg-libxi  # [linux]
-    - xorg-libxrandr  # [linux]
-    - xorg-libxcursor  # [linux]
-    - xorg-libxcomposite  # [linux]
-    - xorg-libxdamage  # [linux]
-    - xorg-libxinerama  # [linux]
-    - xorg-xorgproto  # [linux]
-    - xorg-libxtst  # [linux]
+    - xorg-libxi  # [linux or win]
+    - xorg-libxrandr  # [linux or win]
+    - xorg-libxcursor  # [linux or win]
+    - xorg-libxcomposite  # [linux or win]
+    - xorg-libxdamage  # [linux or win]
+    - xorg-libxinerama  # [linux or win]
+    - xorg-xorgproto  # [linux or win]
+    - xorg-xineramaproto  # [win]
+    - xorg-libxtst  # [linux or win]
     - zlib
     - libtree-sitter
     - jansson
+    - ucrt # [win]
+    - {{ compiler('m2w64_c') }} # [win]
+    - {{ stdlib('m2w64_c') }} # [win]
+    
 
   run:
     - binutils  # [linux]
     - libxml2
-    - ncurses
+    - ncurses # [not win]
+    - m2-ncurses # [win]
     - dbus  # [osx]
     - libjpeg-turbo
     - libpng
     - libtiff
     - giflib
-    - gnutls
+    - gnutls # [not win]
     - gmp
     - glib
-    - freetype  # [linux]
-    - cairo  # [linux]
+    - freetype  # [linux or win]
+    - cairo  # [linux or win]
     - gtk3  # [linux]
-    - harfbuzz  # [linux]
-    - xorg-libxaw  # [linux]
-    - xorg-libxpm  # [linux]
-    - xorg-libxfixes  # [linux]
+    - harfbuzz  # [linux or win]
+    - xorg-libxaw  # [linux or win]
+    - xorg-libxpm  # [linux or win]
+    - xorg-libxfixes  # [linux or win]
     - xorg-libxft  # [linux]
-    - xorg-libxi  # [linux]
-    - xorg-libxrandr  # [linux]
-    - xorg-libxcursor  # [linux]
-    - xorg-libxcomposite  # [linux]
-    - xorg-libxdamage  # [linux]
-    - xorg-libxinerama  # [linux]
-    - xorg-xorgproto  # [linux]
-    - xorg-libxtst  # [linux]
+    - xorg-libxi  # [linux or win]
+    - xorg-libxrandr  # [linux or win]
+    - xorg-libxcursor  # [linux or win]
+    - xorg-libxcomposite  # [linux or win]
+    - xorg-libxdamage  # [linux or win]
+    - xorg-libxinerama  # [linux or win]
+    - xorg-xineramaproto  # [win]
+    - xorg-xorgproto  # [linux or win]
+    - xorg-libxtst  # [linux or win]
     - zlib
     - libtree-sitter
     - jansson
-
-test:
-  commands:
-    - $PREFIX/bin/emacs --help
-    - $PREFIX/bin/emacsclient --help
-    - $PREFIX/bin/ctags --help
-    - $PREFIX/bin/ebrowse --help
-    - $PREFIX/bin/etags --help
-    - $PREFIX/bin/emacs -nw -Q --kill --batch
-    - $PREFIX/bin/emacs -Q --kill --batch
-    # Make sure treesit works
-    - $PREFIX/bin/emacs --batch --eval '(unless (treesit-available-p) (kill-emacs 1))'
-    # Make sure json works
-    - $PREFIX/bin/emacs --batch --eval '(unless (json-available-p) (kill-emacs 1))'
+    - m2-texinfo # [win]
+    - ucrt # [win]
+    
+test:  # [not win]
+  commands: # [not win]
+    - $PREFIX/bin/emacs --help  # [not win]
+    - $PREFIX/bin/emacsclient --help  # [not win]
+    - $PREFIX/bin/ctags --help  # [not win]
+    - $PREFIX/bin/ebrowse --help  # [not win]
+    - $PREFIX/bin/etags --help  # [not win]
+    - $PREFIX/bin/emacs -nw -Q --kill --batch  # [not win]
+    - $PREFIX/bin/emacs -Q --kill --batch  # [not win]
+    # Make sure treesit works  # [not win]
+    - $PREFIX/bin/emacs --batch --eval '(unless (treesit-available-p) (kill-emacs 1))'  # [not win]
+    # Make sure json works  # [not win]
+    - $PREFIX/bin/emacs --batch --eval '(unless (json-available-p) (kill-emacs 1))'  # [not win]
     - $PREFIX/bin/emacs --batch --eval '(batch-native-compile t)' $PREFIX/share/emacs/{{ version }}/lisp/calculator.elc  # [linux]
 
 about:
