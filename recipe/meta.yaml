@@ -35,7 +35,7 @@ source:
 
 
 build:
-  number: 0
+  number: 1
   ignore_prefix_files:
     - lib/emacs/jit/bin/*
     - lib/emacs/jit/lib/*
