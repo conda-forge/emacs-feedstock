@@ -27,7 +27,7 @@ source:
     folder: gcc  # [linux]
 
 build:
-  number: 0
+  number: 1
   skip: true  # [win]
   ignore_prefix_files:
     - lib/emacs/jit/bin/*
@@ -97,7 +97,7 @@ requirements:
     - xorg-xorgproto  # [linux]
     - xorg-libxtst  # [linux]
     - zlib
-    - libtree-sitter
+    - libtree-sitter 24.*
     - jansson
 
   run:
