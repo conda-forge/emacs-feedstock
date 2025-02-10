@@ -59,7 +59,7 @@ requirements:
     - glib  # [build_platform != target_platform]
     - zlib  # [build_platform != target_platform]
     - liblzma-devel
-    - libtree-sitter
+    - libtree-sitter 24.*  # https://github.com/conda-forge/libtree-sitter-feedstock/issues/25
     - jansson
     - texinfo
 
@@ -97,7 +97,7 @@ requirements:
     - xorg-xorgproto  # [linux]
     - xorg-libxtst  # [linux]
     - zlib
-    - libtree-sitter 24.*
+    - libtree-sitter 24.*  # https://github.com/conda-forge/libtree-sitter-feedstock/issues/25
     - jansson
 
   run:
@@ -129,7 +129,7 @@ requirements:
     - xorg-xorgproto  # [linux]
     - xorg-libxtst  # [linux]
     - zlib
-    - libtree-sitter
+    - libtree-sitter 24.*  # https://github.com/conda-forge/libtree-sitter-feedstock/issues/25
     - jansson
 
 test:
