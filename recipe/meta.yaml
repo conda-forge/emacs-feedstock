@@ -1,6 +1,6 @@
 # Note: This recipe currently only works on OS X and Linux.
 
-{% set version = "29.4" %}
+{% set version = "30.1" %}
 
 # Version of GCC sources used to build the embedded JIT compiler
 {% set gcc_version = "14.2.0" %}
@@ -12,13 +12,13 @@ package:
 source:
   - fn: emacs-{{ version }}.tar.xz
     url: http://ftp.gnu.org/gnu/emacs/emacs-{{ version }}.tar.xz
-    sha256: ba897946f94c36600a7e7bb3501d27aa4112d791bfe1445c61ed28550daca235
+    sha256: 6ccac1ae76e6af93c6de1df175e8eb406767c23da3dd2a16aa67e3124a6f138f
     patches:
       - 0001-disable-sanity-check.patch  # [osx and build_platform != target_platform]
       - 0002-apple-silicon-resign-binary.patch  # [osx]
       - 0003-macos-cross-compile-configure.patch  # [osx and build_platform != target_platform]
       - 0004-macos-cross-compile-makefile.patch  # [osx and build_platform != target_platform]
-      - 0005-macos-cross-compile-nextstep-makefile.patch  # [osx and build_platform != target_platform]
+      - 0005-macos-add-missing-pdump-check.patch  # [osx and build_platform != target_platform]
       - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
       - 0007-macos-cross-compile-lisp-makefile.patch  # [osx and build_platform != target_platform]
   - fn: gcc-{{ gcc_version }}.tar.xz  # [linux]
@@ -27,7 +27,7 @@ source:
     folder: gcc  # [linux]
 
 build:
-  number: 1
+  number: 0
   skip: true  # [win]
   ignore_prefix_files:
     - lib/emacs/jit/bin/*
@@ -59,7 +59,7 @@ requirements:
     - glib  # [build_platform != target_platform]
     - zlib  # [build_platform != target_platform]
     - liblzma-devel
-    - libtree-sitter 0.24.*  # https://github.com/conda-forge/libtree-sitter-feedstock/issues/25
+    - libtree-sitter
     - jansson
     - texinfo
 
@@ -97,7 +97,7 @@ requirements:
     - xorg-xorgproto  # [linux]
     - xorg-libxtst  # [linux]
     - zlib
-    - libtree-sitter 0.24.*  # https://github.com/conda-forge/libtree-sitter-feedstock/issues/25
+    - libtree-sitter
     - jansson
 
   run:
@@ -129,7 +129,7 @@ requirements:
     - xorg-xorgproto  # [linux]
     - xorg-libxtst  # [linux]
     - zlib
-    - libtree-sitter 0.24.*  # https://github.com/conda-forge/libtree-sitter-feedstock/issues/25
+    - libtree-sitter
     - jansson
 
 test:

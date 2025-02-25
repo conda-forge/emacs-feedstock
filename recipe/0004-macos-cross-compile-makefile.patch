@@ -1,7 +1,9 @@
---- src/Makefile.in.orig	2020-12-07 13:55:20.000000000 -0800
-+++ src/Makefile.in		2020-12-07 14:17:54.000000000 -0800
-@@ -327,6 +327,12 @@
- GMP_OBJ = @GMP_OBJ@
+diff --git a/src/Makefile.in b/src/Makefile.in
+index b5d88eb749e..6a019ecb5f5 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -382,6 +382,12 @@ LIBGCCJIT_CFLAGS =
+ DYNLIB_OBJ = @DYNLIB_OBJ@
  
  RUN_TEMACS = ./temacs
 +cross_compiling = @cross_compiling@
@@ -13,17 +15,17 @@
  
  # Whether builds should contain details. '--no-build-details' or empty.
  BUILD_DETAILS = @BUILD_DETAILS@
-@@ -587,6 +593,9 @@
- $(pdmp): emacs$(EXEEXT)
- 	LC_ALL=C $(RUN_TEMACS) -batch $(BUILD_DETAILS) -l loadup --temacs=pdump
+@@ -684,6 +690,9 @@ $(pdmp):
+ 	LC_ALL=C $(RUN_TEMACS) -batch $(BUILD_DETAILS) -l loadup --temacs=pdump \
+ 		--bin-dest $(BIN_DESTDIR) --eln-dest $(ELN_DESTDIR)
  	cp -f $@ $(bootstrap_pdmp)
 +else
 +emacs.pdmp: emacs$(EXEEXT)
 +	echo "Skipping pdump (not configured)"
  endif
  
- ## We run make-docfile twice because the command line may get too long
-@@ -603,7 +612,7 @@
+ ## $(SOME_MACHINE_OBJECTS) comes before $(obj) because some files may
+@@ -695,7 +704,7 @@ $(pdmp):
  $(etc)/DOC: $(libsrc)/make-docfile$(EXEEXT) $(doc_obj)
  	$(AM_V_GEN)$(MKDIR_P) $(etc)
  	$(AM_V_at)rm -f $(etc)/DOC
@@ -32,8 +34,8 @@
  	  $(SOME_MACHINE_OBJECTS) $(doc_obj) > $(etc)/DOC
  
  $(libsrc)/make-docfile$(EXEEXT) $(libsrc)/make-fingerprint$(EXEEXT): \
-@@ -627,7 +636,7 @@
- am__v_GLOBALS_1 =
+@@ -712,7 +721,7 @@ buildobj.h:
+ GLOBAL_SOURCES = $(base_obj:.o=.c) $(NS_OBJC_OBJ:.o=.m)
  
  gl-stamp: $(libsrc)/make-docfile$(EXEEXT) $(GLOBAL_SOURCES)
 -	$(AM_V_GLOBALS)$(libsrc)/make-docfile -d $(srcdir) -g $(doc_obj) > globals.tmp
@@ -41,7 +43,7 @@
  	$(AM_V_at)$(top_srcdir)/build-aux/move-if-change globals.tmp globals.h
  	$(AM_V_at)echo timestamp > $@
  
-@@ -641,7 +650,7 @@
+@@ -726,7 +735,7 @@ $(LIBEGNU_ARCHIVE):
  	$(MAKE) -C $(dir $@) all
  
  ifeq ($(HAVE_PDUMPER),yes)
