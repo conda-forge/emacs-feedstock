@@ -1,0 +1,24 @@
+diff -u emacs-30.0.93.orig/configure emacs-30.0.93/configure
+--- emacs-30.0.93.orig/configure	2024-12-19 16:32:49.000000000 -0500
++++ emacs-30.0.93/configure	2025-01-26 04:13:32.715499727 -0500
+@@ -16848,7 +16848,7 @@
+ fi
+ { printf "%s\n" "$as_me:${as_lineno-$LINENO}: result: $emacs_cv_var_doug_lea_malloc" >&5
+ printf "%s\n" "$emacs_cv_var_doug_lea_malloc" >&6; }
+-doug_lea_malloc=$emacs_cv_var_doug_lea_malloc
++doug_lea_malloc=no
+ 
+ hybrid_malloc=
+ system_malloc=yes
+diff -u emacs-30.0.93.orig/configure.ac emacs-30.0.93/configure.ac
+--- emacs-30.0.93.orig/configure.ac	2024-12-19 16:27:30.000000000 -0500
++++ emacs-30.0.93/configure.ac	2025-01-26 04:13:14.381360608 -0500
+@@ -3314,7 +3314,7 @@
+ 	    __malloc_initialize_hook = hook;]])],
+        [emacs_cv_var_doug_lea_malloc=yes])
+    fi])
+-doug_lea_malloc=$emacs_cv_var_doug_lea_malloc
++doug_lea_malloc=no
+ 
+ hybrid_malloc=
+ system_malloc=yes
