@@ -12,3 +12,5 @@ provider:
   linux: azure
   osx: azure
 test: native_and_emulated
+shellcheck:
+    enabled: True
