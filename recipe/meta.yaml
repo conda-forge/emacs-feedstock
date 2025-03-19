@@ -18,7 +18,7 @@ source:
       - 0002-apple-silicon-resign-binary.patch  # [osx]
       - 0003-macos-cross-compile-configure.patch  # [osx and build_platform != target_platform]
       - 0004-macos-cross-compile-makefile.patch  # [osx and build_platform != target_platform]
-      - 0005-macos-add-missing-pdump-check.patch  # [osx and build_platform != target_platform]
+#      - 0005-macos-add-missing-pdump-check.patch  # [osx and build_platform != target_platform]
       - 0006-macos-cross-compile-post-install-pdump-path.patch  # [osx and build_platform != target_platform]
       - 0007-macos-cross-compile-lisp-makefile.patch  # [osx and build_platform != target_platform]
       - 0008-do-not-dump-configure-info-directory.patch  # [linux]
