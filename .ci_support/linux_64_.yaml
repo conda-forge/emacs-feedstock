@@ -31,7 +31,7 @@ gmp:
 gnutls:
 - '3.8'
 harfbuzz:
-- '10'
+- '11'
 libjpeg_turbo:
 - '3'
 liblzma_devel:
