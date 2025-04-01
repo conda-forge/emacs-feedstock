@@ -6,7 +6,7 @@ source $RECIPE_DIR/get_cpu_arch.sh
 cp $BUILD_PREFIX/share/gnuconfig/config.* ./build-aux
 
 if [ "$(uname)" == "Darwin" ]; then
-    OPTS="--with-tree-sitter --with-json"
+    OPTS="--with-tree-sitter"
 
     # The build has a hard time finding libtinfo, which is separated from
     # libncurses. See
@@ -71,7 +71,7 @@ s@--sysroot=%R@--sysroot=${PREFIX}/${HOST}/sysroot@g
     mv ${SPECSFILE}.new ${SPECSFILE}
     popd
 
-    OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib --with-x-toolkit=gtk3 --with-harfbuzz -with-cairo --with-tree-sitter --with-json"
+    OPTS="--x-includes=$PREFIX/include --x-libraries=$PREFIX/lib --with-x-toolkit=gtk3 --with-harfbuzz -with-cairo --with-tree-sitter"
 fi
 
 autoreconf -vfi
@@ -108,7 +108,6 @@ fi
 if [ "$(uname)" != "Darwin" ]; then
     CFLAGS="$CFLAGS -I$PREFIX/lib/emacs/jit/include"
     LDFLAGS="$LDFLAGS -L$PREFIX/lib/emacs/jit/lib -Wl,-rpath,$PREFIX/lib/emacs/jit/lib"
-    OPTS="$OPTS --with-native-compilation=yes"
 fi
 
 bash configure --with-modules --prefix=$PREFIX $OPTS
