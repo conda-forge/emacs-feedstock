@@ -23,6 +23,7 @@ source:
       - 0007-macos-cross-compile-lisp-makefile.patch  # [osx and build_platform != target_platform]
       - 0008-do-not-dump-configure-info-directory.patch  # [linux]
       - 0009-disable-malloc-set-state.patch  # [linux]
+      - 0010-disable-fchmodat.patch  # [linux]
   - fn: gcc-{{ gcc_version }}.tar.xz  # [linux]
     url: https://ftp.gnu.org/gnu/gcc/gcc-{{ gcc_version }}/gcc-{{ gcc_version }}.tar.xz  # [linux]
     sha256: a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9  # [linux]
