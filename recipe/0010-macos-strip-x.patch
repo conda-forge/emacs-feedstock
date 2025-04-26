@@ -1,0 +1,12 @@
+diff -ur gcc-14.2.0.orig/install-sh gcc-14.2.0/install-sh
+--- gcc-14.2.0.orig/install-sh	2024-08-01 10:17:17.000000000 +0200
++++ gcc-14.2.0/install-sh	2024-12-28 17:59:40.318861156 +0100
+@@ -444,7 +444,7 @@
+     #
+     { test -z "$chowncmd" || $doit $chowncmd "$dsttmp"; } &&
+     { test -z "$chgrpcmd" || $doit $chgrpcmd "$dsttmp"; } &&
+-    { test -z "$stripcmd" || $doit $stripcmd "$dsttmp"; } &&
++    { test -z "$stripcmd" || $doit $stripcmd -x "$dsttmp"; } &&
+     { test -z "$chmodcmd" || $doit $chmodcmd $mode "$dsttmp"; } &&
+ 
+     # If -C, don't bother to copy if it wouldn't change the file.
