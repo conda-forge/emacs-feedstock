@@ -102,6 +102,7 @@ requirements:
     - zlib
     - libtree-sitter
     - jansson
+    - expat
 
   run:
     - binutils  # [linux]
