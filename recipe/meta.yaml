@@ -23,10 +23,12 @@ source:
       - 0008-do-not-dump-configure-info-directory.patch  # [linux]
       - 0009-disable-malloc-set-state.patch  # [linux]
       - 0010-disable-fchmodat.patch  # [linux]
-  - fn: gcc-{{ gcc_version }}.tar.xz  # [linux]
-    url: https://ftp.gnu.org/gnu/gcc/gcc-{{ gcc_version }}/gcc-{{ gcc_version }}.tar.xz  # [linux]
-    sha256: a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9  # [linux]
-    folder: gcc  # [linux]
+  - fn: gcc-{{ gcc_version }}.tar.xz  # [build_platform == target_platform]
+    url: https://ftp.gnu.org/gnu/gcc/gcc-{{ gcc_version }}/gcc-{{ gcc_version }}.tar.xz  # [build_platform == target_platform]
+    sha256: a7b39bc69cbf9e25826c5a60ab26477001f7c08d85cec04bc0e29cabed6f3cc9  # [build_platform == target_platform]
+    folder: gcc  # [build_platform == target_platform]
+    patches:  # [osx and build_platform == target_platform]
+      - 0010-macos-strip-x.patch  # [osx and build_platform == target_platform]
 
 build:
   number: 0
@@ -40,12 +42,14 @@ requirements:
     - pkg-config
     - gnuconfig  # [unix]
     - {{ compiler('c') }}
-    - {{ compiler('cxx') }}  # [linux]
+    - {{ compiler('cxx') }}  # [build_platform == target_platform]
     - {{ stdlib("c") }}
+    - libcxx-devel  # [osx]
     - autoconf  # [unix]
     - automake  # [unix]
     - m4  # [unix]
     - make  # [unix]
+    - diffutils  # [unix]
     - gtk3  # [build_platform != target_platform]
     - harfbuzz  # [build_platform != target_platform]
     - libxml2  # [build_platform != target_platform]
@@ -66,8 +70,8 @@ requirements:
     - texinfo
 
   host:
-    - {{ stdlib("c") }}  # [linux]
-    - binutils  # [linux]
+    - {{ stdlib("c") }}  # [build_platform == target_platform]
+    - binutils  # [build_platform == target_platform]
     - libxml2
     - ncurses
     - dbus  # [osx]
@@ -79,8 +83,8 @@ requirements:
     - giflib
     - gnutls
     - gmp
-    - mpc  # [linux]
-    - mpfr  # [linux]
+    - mpc  # [build_platform == target_platform]
+    - mpfr  # [build_platform == target_platform]
     - glib
     - freetype  # [linux]
     - cairo  # [linux]
@@ -104,7 +108,7 @@ requirements:
     - expat
 
   run:
-    - binutils  # [linux]
+    - binutils  # [build_platform == target_platform]
     - libxml2
     - ncurses
     - dbus  # [osx]
@@ -150,7 +154,7 @@ test:
     - $PREFIX/bin/emacs --batch --eval '(unless (json-available-p) (kill-emacs 1))'
     # Check the configure-info-directory patching
     - $PREFIX/bin/emacs --batch --eval "(unless (string= \"${PREFIX}/share/info\" configure-info-directory) (kill-emacs 1))"  # [linux]
-    - $PREFIX/bin/emacs --batch --eval '(batch-native-compile t)' $PREFIX/share/emacs/{{ version }}/lisp/calculator.elc  # [linux]
+    - $PREFIX/bin/emacs --batch --eval '(batch-native-compile t)' $PREFIX/share/emacs/{{ version }}/lisp/calculator.elc  # [build_platform == target_platform]
 
 about:
   home: http://www.gnu.org/software/emacs/
