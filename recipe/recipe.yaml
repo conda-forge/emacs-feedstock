@@ -1,0 +1,167 @@
+context:
+  version: 30.2
+  gcc_version: 14.3.0
+
+package:
+  name: emacs
+  version: ${{ version }}
+
+source:
+  - url: https://ftpmirror.gnu.org/gnu/emacs/emacs-${{ version }}.tar.xz
+    sha256: b3f36f18a6dd2715713370166257de2fae01f9d38cfe878ced9b1e6ded5befd9
+    patches:
+      - if: osx
+        then:
+          - 0002-apple-silicon-resign-binary.patch
+          - if: build_platform != target_platform
+            then:
+              - 0001-disable-sanity-check.patch
+              - 0003-macos-cross-compile-configure.patch
+              - 0004-macos-cross-compile-makefile.patch
+              - 0006-macos-cross-compile-post-install-pdump-path.patch
+              - 0007-macos-cross-compile-lisp-makefile.patch
+
+      - if: linux
+        then:
+          - 0008-do-not-dump-configure-info-directory.patch
+          - 0009-disable-malloc-set-state.patch
+          - 0010-disable-fchmodat.patch
+
+  - if: linux
+    then:
+      - url: https://ftpmirror.gnu.org/gnu/gcc/gcc-${{ gcc_version }}/gcc-${{ gcc_version }}.tar.xz
+        sha256: e0dc77297625631ac8e50fa92fffefe899a4eb702592da5c32ef04e2293aca3a
+        target_directory: gcc
+
+build:
+  number: 1
+  skip: win
+  files:
+    exclude:
+      - lib/gdk-pixbuf-*/*/loaders.cache
+      - lib/gtk-*/*/immodules.cache
+      - share/glib-*/schemas/gschemas.compiled
+      - share/icons/hicolor/icon-theme.cache
+  prefix_detection:
+    ignore:
+      - lib/emacs/jit/bin/*
+      - lib/emacs/jit/lib/**/*.o
+      - lib/emacs/jit/lib/**/*.so.*
+
+requirements:
+  build:
+    - pkg-config
+    - gnuconfig
+
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
+
+    - if: linux
+      then:
+        - ${{ compiler('cxx') }}
+
+    - if: unix
+      then:
+        - autoconf
+        - automake
+        - m4
+        - make
+
+    - if: build_platform != target_platform
+      then:
+        - dbus
+        - expat
+        - giflib
+        - glib
+        - gmp
+        - gnutls
+        - gtk3
+        - harfbuzz
+        - libjpeg-turbo
+        - libpng
+        - librsvg
+        - libtiff
+        - libtree-sitter
+        - libxml2
+        - ncurses
+        - zlib
+
+    - texinfo
+
+  host:
+    - if: linux
+      then:
+        - ${{ stdlib("c") }}
+        - binutils
+        - cairo
+        - gtk3
+        - harfbuzz
+        - mpc
+        - mpfr
+        - xorg-libxaw
+        - xorg-libxcomposite
+        - xorg-libxfixes
+        - xorg-libxi
+        - xorg-libxinerama
+        - xorg-libxrandr
+        - xorg-xorgproto
+
+    - if: osx
+      then:
+        - dbus
+
+    - expat
+    - giflib
+    - glib
+    - gmp
+    - gnutls
+    - libjpeg-turbo
+    - libpng
+    - librsvg
+    - libtiff
+    - libtree-sitter
+    - libxml2
+    - ncurses
+    - zlib
+
+  run:
+    - if: linux
+      then:
+        - binutils
+
+    - if: osx
+      then:
+        - dbus
+
+tests:
+  - script:
+    - $PREFIX/bin/emacs --help
+    - $PREFIX/bin/emacsclient --help
+    - $PREFIX/bin/ctags --help
+    - $PREFIX/bin/ebrowse --help
+    - $PREFIX/bin/etags --help
+    - $PREFIX/bin/emacs -nw -Q --kill --batch
+    - $PREFIX/bin/emacs -Q --kill --batch
+    # Make sure treesit works
+    - $PREFIX/bin/emacs --batch --eval '(unless (treesit-available-p) (kill-emacs 1))'
+    # Make sure json works
+    - $PREFIX/bin/emacs --batch --eval '(unless (json-available-p) (kill-emacs 1))'
+    - if: linux
+      then:
+        # Check the configure-info-directory patching
+        - $PREFIX/bin/emacs --batch --eval "(unless (string= \"${PREFIX}/share/info\" configure-info-directory) (kill-emacs 1))"
+        # Check the native compilation
+        - $PREFIX/bin/emacs --batch --eval '(batch-native-compile t)' $PREFIX/share/emacs/${{ version }}/lisp/calculator.elc
+
+about:
+  homepage: http://www.gnu.org/software/emacs/
+  license: GPL-3.0-only
+  summary: GNU Emacs is an extensible, customizable text editor.
+  license_file: COPYING
+
+extra:
+  recipe-maintainers:
+    - asmeurer
+    - jmakovicka
+    - msarahan
+    - notestaff
