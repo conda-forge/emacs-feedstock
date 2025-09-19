@@ -14,8 +14,14 @@ channel_sources:
 - conda-forge
 channel_targets:
 - conda-forge main
+cxx_compiler:
+- clangxx
+cxx_compiler_version:
+- '19'
 dbus:
 - '1'
+expat:
+- '2'
 giflib:
 - '5.2'
 glib:
@@ -26,8 +32,6 @@ gnutls:
 - '3.8'
 libjpeg_turbo:
 - '3'
-liblzma_devel:
-- '5'
 libpng:
 - '1.6'
 librsvg:
@@ -42,5 +46,8 @@ ncurses:
 - '6'
 target_platform:
 - osx-64
+zip_keys:
+- - c_compiler_version
+  - cxx_compiler_version
 zlib:
 - '1'
