@@ -1,0 +1,81 @@
+From a9372ca26e655b0267907a55992ca9ebe140c80b Mon Sep 17 00:00:00 2001
+From: Jindrich Makovicka <makovick@gmail.com>
+Date: Mon, 22 Sep 2025 03:54:03 -0400
+Subject: [PATCH] Update to tree-sitter 0.26 API
+
+---
+ doc/lispref/parsing.texi |  2 +-
+ src/treesit.c            | 12 ++++++------
+ 2 files changed, 7 insertions(+), 7 deletions(-)
+
+diff --git a/doc/lispref/parsing.texi b/doc/lispref/parsing.texi
+index f6680ea589c..c3b7e17e6b2 100644
+--- a/doc/lispref/parsing.texi
++++ b/doc/lispref/parsing.texi
+@@ -2367,5 +2367,5 @@ Tree-sitter C API
+ ts_language_field_name_for_id
+ ts_language_field_id_for_name
+ ts_language_symbol_type
+-ts_language_version
++ts_language_abi_version
+ @end example
+diff --git a/src/treesit.c b/src/treesit.c
+index b3214dad836..9e4214bab4b 100644
+--- a/src/treesit.c
++++ b/src/treesit.c
+@@ -35,7 +35,7 @@ Copyright (C) 2021-2025 Free Software Foundation, Inc.
+ # include "w32common.h"
+ 
+ /* In alphabetical order.  */
+-#undef ts_language_version
++#undef ts_language_abi_version
+ #undef ts_node_child
+ #undef ts_node_child_by_field_name
+ #undef ts_node_child_count
+@@ -90,7 +90,7 @@ Copyright (C) 2021-2025 Free Software Foundation, Inc.
+ #undef ts_tree_get_changed_ranges
+ #undef ts_tree_root_node
+ 
+-DEF_DLL_FN (uint32_t, ts_language_version, (const TSLanguage *));
++DEF_DLL_FN (uint32_t, ts_language_abi_version, (const TSLanguage *));
+ DEF_DLL_FN (TSNode, ts_node_child, (TSNode, uint32_t));
+ DEF_DLL_FN (TSNode, ts_node_child_by_field_name,
+ 	    (TSNode, const char *, uint32_t));
+@@ -167,7 +167,7 @@ init_treesit_functions (void)
+   if (!library)
+     return false;
+ 
+-  LOAD_DLL_FN (library, ts_language_version);
++  LOAD_DLL_FN (library, ts_language_abi_version);
+   LOAD_DLL_FN (library, ts_node_child);
+   LOAD_DLL_FN (library, ts_node_child_by_field_name);
+   LOAD_DLL_FN (library, ts_node_child_count);
+@@ -225,7 +225,7 @@ init_treesit_functions (void)
+   return true;
+ }
+ 
+-#define ts_language_version fn_ts_language_version
++#define ts_language_abi_version fn_ts_language_abi_version
+ #define ts_node_child fn_ts_node_child
+ #define ts_node_child_by_field_name fn_ts_node_child_by_field_name
+ #define ts_node_child_count fn_ts_node_child_count
+@@ -745,7 +745,7 @@ treesit_load_language (Lisp_Object language_symbol,
+     {
+       *signal_symbol = Qtreesit_load_language_error;
+       *signal_data = list2 (Qversion_mismatch,
+-			    make_fixnum (ts_language_version (lang)));
++			    make_fixnum (ts_language_abi_version (lang)));
+       return loaded_lang;
+     }
+ 
+@@ -823,7 +823,7 @@ DEFUN ("treesit-language-abi-version", Ftreesit_language_abi_version,
+       TSLanguage *ts_language = lang.lang;
+       if (ts_language == NULL)
+ 	return Qnil;
+-      uint32_t version =  ts_language_version (ts_language);
++      uint32_t version =  ts_language_abi_version (ts_language);
+       return make_fixnum((ptrdiff_t) version);
+     }
+ }
+-- 
+2.51.0

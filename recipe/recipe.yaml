@@ -10,6 +10,8 @@ source:
   - url: https://ftpmirror.gnu.org/gnu/emacs/emacs-${{ version }}.tar.xz
     sha256: b3f36f18a6dd2715713370166257de2fae01f9d38cfe878ced9b1e6ded5befd9
     patches:
+      - 0011-Update-to-tree-sitter-0.26-API.patch
+
       - if: osx
         then:
           - 0002-apple-silicon-resign-binary.patch
@@ -34,7 +36,7 @@ source:
         target_directory: gcc
 
 build:
-  number: 1
+  number: 2
   skip: win
   files:
     exclude:
