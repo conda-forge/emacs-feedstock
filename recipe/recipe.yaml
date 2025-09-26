@@ -1,6 +1,7 @@
 context:
   version: 30.2
   gcc_version: 14.3.0
+  tree_sitter_version: 0.25.*
 
 package:
   name: emacs
@@ -34,7 +35,7 @@ source:
         target_directory: gcc
 
 build:
-  number: 1
+  number: 2
   skip: win
   files:
     exclude:
@@ -81,7 +82,7 @@ requirements:
         - libpng
         - librsvg
         - libtiff
-        - libtree-sitter
+        - libtree-sitter ${{ tree_sitter_version }}
         - libxml2
         - ncurses
         - zlib
@@ -119,7 +120,7 @@ requirements:
     - libpng
     - librsvg
     - libtiff
-    - libtree-sitter
+    - libtree-sitter ${{ tree_sitter_version }}
     - libxml2
     - ncurses
     - zlib
