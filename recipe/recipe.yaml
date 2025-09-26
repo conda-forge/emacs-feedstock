@@ -1,6 +1,7 @@
 context:
   version: 30.2
   gcc_version: 14.3.0
+  tree_sitter_version: 0.25.*
 
 package:
   name: emacs
@@ -34,7 +35,7 @@ source:
         target_directory: gcc
 
 build:
-  number: 1
+  number: 2
   skip: win
   files:
     exclude:
@@ -81,8 +82,8 @@ requirements:
         - libpng
         - librsvg
         - libtiff
-        - libtree-sitter
-        - libxml2
+        - libtree-sitter ${{ tree_sitter_version }}
+        - libxml2-devel
         - ncurses
         - zlib
 
@@ -119,8 +120,8 @@ requirements:
     - libpng
     - librsvg
     - libtiff
-    - libtree-sitter
-    - libxml2
+    - libtree-sitter ${{ tree_sitter_version }}
+    - libxml2-devel
     - ncurses
     - zlib
 
@@ -135,23 +136,23 @@ requirements:
 
 tests:
   - script:
-    - $PREFIX/bin/emacs --help
-    - $PREFIX/bin/emacsclient --help
-    - $PREFIX/bin/ctags --help
-    - $PREFIX/bin/ebrowse --help
-    - $PREFIX/bin/etags --help
-    - $PREFIX/bin/emacs -nw -Q --kill --batch
-    - $PREFIX/bin/emacs -Q --kill --batch
+      - $PREFIX/bin/emacs --help
+      - $PREFIX/bin/emacsclient --help
+      - $PREFIX/bin/ctags --help
+      - $PREFIX/bin/ebrowse --help
+      - $PREFIX/bin/etags --help
+      - $PREFIX/bin/emacs -nw -Q --kill --batch
+      - $PREFIX/bin/emacs -Q --kill --batch
     # Make sure treesit works
-    - $PREFIX/bin/emacs --batch --eval '(unless (treesit-available-p) (kill-emacs 1))'
+      - $PREFIX/bin/emacs --batch --eval '(unless (treesit-available-p) (kill-emacs 1))'
     # Make sure json works
-    - $PREFIX/bin/emacs --batch --eval '(unless (json-available-p) (kill-emacs 1))'
-    - if: linux
-      then:
+      - $PREFIX/bin/emacs --batch --eval '(unless (json-available-p) (kill-emacs 1))'
+      - if: linux
+        then:
         # Check the configure-info-directory patching
-        - $PREFIX/bin/emacs --batch --eval "(unless (string= \"${PREFIX}/share/info\" configure-info-directory) (kill-emacs 1))"
+          - $PREFIX/bin/emacs --batch --eval "(unless (string= \"${PREFIX}/share/info\" configure-info-directory) (kill-emacs 1))"
         # Check the native compilation
-        - $PREFIX/bin/emacs --batch --eval '(batch-native-compile t)' $PREFIX/share/emacs/${{ version }}/lisp/calculator.elc
+          - $PREFIX/bin/emacs --batch --eval '(batch-native-compile t)' $PREFIX/share/emacs/${{ version }}/lisp/calculator.elc
 
 about:
   homepage: http://www.gnu.org/software/emacs/
