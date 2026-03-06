@@ -14,13 +14,6 @@ source:
       - if: osx
         then:
           - 0002-apple-silicon-resign-binary.patch
-          - if: build_platform != target_platform
-            then:
-              - 0001-disable-sanity-check.patch
-              - 0003-macos-cross-compile-configure.patch
-              - 0004-macos-cross-compile-makefile.patch
-              - 0006-macos-cross-compile-post-install-pdump-path.patch
-              - 0007-macos-cross-compile-lisp-makefile.patch
 
       - 0008-do-not-dump-configure-info-directory.patch
 
@@ -36,7 +29,7 @@ source:
         target_directory: gcc
 
 build:
-  number: 3
+  number: 4
   skip: win
   files:
     exclude:
@@ -68,26 +61,6 @@ requirements:
         - automake
         - m4
         - make
-
-    - if: build_platform != target_platform
-      then:
-        - dbus
-        - expat
-        - giflib
-        - glib
-        - gmp
-        - gnutls
-        - gtk3
-        - harfbuzz
-        - libjpeg-turbo
-        - libpng
-        - librsvg
-        - libsqlite
-        - libtiff
-        - libtree-sitter ${{ tree_sitter_version }}
-        - libxml2-devel
-        - ncurses
-        - zlib
 
     - texinfo
 
