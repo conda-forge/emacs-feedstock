@@ -1,6 +1,6 @@
 context:
   version: "30.2"
-  gcc_version: "14.3.0"
+  gcc_version: "15.3.0"
   tree_sitter_version: "0.25.*"
 
 package:
@@ -25,7 +25,7 @@ source:
   - if: linux
     then:
       - url: https://ftpmirror.gnu.org/gnu/gcc/gcc-${{ gcc_version }}/gcc-${{ gcc_version }}.tar.xz
-        sha256: e0dc77297625631ac8e50fa92fffefe899a4eb702592da5c32ef04e2293aca3a
+        sha256: fa59c1beef8995f27c4d71c1df227587189315d3e6faff1bb4306e61b0c530eb
         target_directory: gcc
 
 build:
