@@ -16,11 +16,17 @@ cxx_compiler:
 - gxx
 cxx_compiler_version:
 - '15'
+dbus:
+- '1'
 docker_image:
 - quay.io/condaforge/linux-anvil-x86_64:alma9
 expat:
 - '2'
+fontconfig:
+- '2'
 freetype:
+- '2'
+gdk_pixbuf:
 - '2'
 giflib:
 - '6'
@@ -30,6 +36,8 @@ gmp:
 - '6'
 gnutls:
 - '3.8'
+libiconv:
+- '1'
 libjpeg_turbo:
 - '3'
 libpng:
@@ -40,12 +48,18 @@ libsqlite:
 - '3'
 libtiff:
 - '4.7'
+libwebp_base:
+- '1'
+libxcb:
+- '1'
 libxml2_devel:
 - '2.14'
 mpfr:
 - '4'
 ncurses:
 - '6'
+pango:
+- '1'
 target_platform:
 - linux-64
 zip_keys:
@@ -53,3 +67,5 @@ zip_keys:
   - cxx_compiler_version
 zlib:
 - '1'
+zstd:
+- '1.5'
