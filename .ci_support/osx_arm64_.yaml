@@ -18,6 +18,8 @@ dbus:
 - '1'
 expat:
 - '2'
+gdk_pixbuf:
+- '2'
 giflib:
 - '6'
 glib:
@@ -36,6 +38,8 @@ libsqlite:
 - '3'
 libtiff:
 - '4.7'
+libwebp_base:
+- '1'
 libxml2_devel:
 - '2.14'
 macos_machine:
