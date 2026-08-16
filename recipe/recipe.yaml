@@ -29,7 +29,7 @@ source:
         target_directory: gcc
 
 build:
-  number: 5
+  number: 6
   skip: win
   files:
     exclude:
@@ -70,24 +70,32 @@ requirements:
         - ${{ stdlib("c") }}
         - binutils
         - cairo
+        - fontconfig
         - freetype
         - gtk3
         - harfbuzz
+        - libiconv
+        - libxcb
         - mpc
         - mpfr
+        - pango
+        - xorg-libice
+        - xorg-libsm
         - xorg-libxaw
         - xorg-libxcomposite
+        - xorg-libx11
+        - xorg-libxext
         - xorg-libxfixes
         - xorg-libxi
         - xorg-libxinerama
         - xorg-libxrandr
+        - xorg-libxrender
         - xorg-xorgproto
+        - zstd
 
-    - if: osx
-      then:
-        - dbus
-
+    - dbus
     - expat
+    - gdk-pixbuf
     - giflib
     - glib
     - gmp
@@ -98,6 +106,7 @@ requirements:
     - libsqlite
     - libtiff
     - libtree-sitter ${{ tree_sitter_version }}
+    - libwebp-base
     - libxml2-devel
     - ncurses
     - zlib
@@ -115,7 +124,6 @@ tests:
   - script:
       - $PREFIX/bin/emacs --help
       - $PREFIX/bin/emacsclient --help
-      - $PREFIX/bin/ctags --help
       - $PREFIX/bin/ebrowse --help
       - $PREFIX/bin/etags --help
       - $PREFIX/bin/emacs -nw -Q --kill --batch
