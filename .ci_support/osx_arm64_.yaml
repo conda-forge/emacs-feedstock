@@ -41,7 +41,7 @@ libtiff:
 libwebp_base:
 - '1'
 libxml2_devel:
-- '2.14'
+- '2.15'
 macos_machine:
 - arm64-apple-darwin20.0.0
 ncurses:
@@ -50,3 +50,5 @@ target_platform:
 - osx-arm64
 zlib:
 - '1'
+zstd:
+- '1.5'

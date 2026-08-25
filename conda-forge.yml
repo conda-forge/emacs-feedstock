@@ -13,3 +13,5 @@ provider:
   osx: azure
   osx_arm64: default
 test: native_and_emulated
+shellcheck:
+    enabled: True

@@ -23,7 +23,7 @@ cmd = "pixi exec --force-reinstall --list='^conda-smithy$' conda-smithy rerender
 description = "Rerender the feedstock."
 
 [tasks.lint]
-cmd = "pixi exec --list='^conda-smithy$' conda-smithy lint --conda-forge recipe"
+cmd = "pixi exec --with shellcheck --list='^conda-smithy$' conda-smithy lint --conda-forge recipe"
 description = "Lint the feedstock recipe"
 
 [feature.build.dependencies]

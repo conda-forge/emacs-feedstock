@@ -1,22 +1,8 @@
-diff -ur emacs-30.1.orig/configure emacs-30.1/configure
---- emacs-30.1.orig/configure	2025-02-23 10:40:48.000000000 -0500
-+++ emacs-30.1/configure	2025-04-01 03:43:19.923854296 -0400
-@@ -44284,10 +44284,10 @@
- _ACEOF
- if ac_fn_c_try_run "$LINENO"
- then :
--  gl_cv_func_fchmodat_works=yes
-+  gl_cv_func_fchmodat_works=no
- else $as_nop
-   case $? in
--            2) gl_cv_func_fchmodat_works='nearly' ;;
-+            2) gl_cv_func_fchmodat_works=no ;;
-             *) gl_cv_func_fchmodat_works=no ;;
-           esac
- 
---- emacs-30.1.orig/m4/fchmodat.m4      2025-02-18 13:31:36.000000000 -0500
-+++ emacs-30.1/m4/fchmodat.m4   2025-04-01 04:34:20.612240844 -0400
-@@ -63,9 +63,9 @@
+diff --git a/m4/fchmodat.m4 b/m4/fchmodat.m4
+index e4688708063..611bb23f09e 100644
+--- a/m4/fchmodat.m4
++++ b/m4/fchmodat.m4
+@@ -64,9 +64,9 @@ AC_DEFUN
                  result |= 4;
                return result;
              ]])],
@@ -28,3 +14,23 @@ diff -ur emacs-30.1.orig/configure emacs-30.1/configure
              *) gl_cv_func_fchmodat_works=no ;;
            esac
           ],
+
+henry@holly:~/build/conda/emacs-feedstock/recipe$ 
+henry@holly:~/build/emacs$ git diff
+diff --git a/m4/fchmodat.m4 b/m4/fchmodat.m4
+index e4688708063..611bb23f09e 100644
+--- a/m4/fchmodat.m4
++++ b/m4/fchmodat.m4
+@@ -64,9 +64,9 @@ AC_DEFUN
+                 result |= 4;
+               return result;
+             ]])],
+-         [gl_cv_func_fchmodat_works=yes],
++         [gl_cv_func_fchmodat_works=no],
+          [case $? in
+-            2) gl_cv_func_fchmodat_works='nearly' ;;
++            2) gl_cv_func_fchmodat_works=no ;;
+             *) gl_cv_func_fchmodat_works=no ;;
+           esac
+          ],
+

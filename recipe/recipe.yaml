@@ -1,5 +1,5 @@
 context:
-  version: "30.2"
+  version: "31.1"
   gcc_version: "15.3.0"
   tree_sitter_version: "0.25.*"
 
@@ -9,7 +9,7 @@ package:
 
 source:
   - url: https://ftpmirror.gnu.org/gnu/emacs/emacs-${{ version }}.tar.xz
-    sha256: b3f36f18a6dd2715713370166257de2fae01f9d38cfe878ced9b1e6ded5befd9
+    sha256: 1da5790d9580c81932b5bf700633114468da7b3412d69faa767daebf974f4586
     patches:
       - if: osx
         then:
@@ -29,7 +29,7 @@ source:
         target_directory: gcc
 
 build:
-  number: 6
+  number: 0
   skip: win
   files:
     exclude:
@@ -91,7 +91,6 @@ requirements:
         - xorg-libxrandr
         - xorg-libxrender
         - xorg-xorgproto
-        - zstd
 
     - dbus
     - expat
@@ -110,6 +109,7 @@ requirements:
     - libxml2-devel
     - ncurses
     - zlib
+    - zstd
 
   run:
     - if: linux
