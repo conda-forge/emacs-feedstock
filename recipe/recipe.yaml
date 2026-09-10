@@ -8,7 +8,9 @@ package:
   version: ${{ version }}
 
 source:
-  - url: https://ftpmirror.gnu.org/gnu/emacs/emacs-${{ version }}.tar.xz
+  - url:
+      - https://ftpmirror.gnu.org/gnu/emacs/emacs-${{ version }}.tar.xz
+      - https://ftp.gnu.org/gnu/emacs/emacs-${{ version }}.tar.xz
     sha256: 1da5790d9580c81932b5bf700633114468da7b3412d69faa767daebf974f4586
     patches:
       - if: osx
@@ -24,7 +26,9 @@ source:
 
   - if: linux
     then:
-      - url: https://ftpmirror.gnu.org/gnu/gcc/gcc-${{ gcc_version }}/gcc-${{ gcc_version }}.tar.xz
+      - url:
+          - https://ftpmirror.gnu.org/gnu/gcc/gcc-${{ gcc_version }}/gcc-${{ gcc_version }}.tar.xz
+          - https://ftp.gnu.org/gnu/gcc/gcc-${{ gcc_version }}/gcc-${{ gcc_version }}.tar.xz
         sha256: fa59c1beef8995f27c4d71c1df227587189315d3e6faff1bb4306e61b0c530eb
         target_directory: gcc
 
