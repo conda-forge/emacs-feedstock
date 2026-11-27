@@ -33,7 +33,7 @@ source:
         target_directory: gcc
 
 build:
-  number: 0
+  number: 1
   skip: win
   files:
     exclude:
