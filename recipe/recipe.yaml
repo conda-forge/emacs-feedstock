@@ -49,7 +49,7 @@ build:
 
 requirements:
   build:
-    - pkg-config
+    - pkgconf
     - gnuconfig
 
     - ${{ compiler('c') }}
