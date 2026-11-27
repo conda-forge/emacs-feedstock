@@ -9,9 +9,9 @@ github:
 os_version:
   linux_64: alma9
 provider:
-  linux: azure
+  linux: default
   linux_aarch64: default
-  osx: azure
+  osx: default
   osx_arm64: default
 shellcheck:
   enabled: true
